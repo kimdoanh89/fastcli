@@ -20,7 +20,7 @@ source venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-The environment `NORNIR_CONFIG_FILE` needs to be configure before running:
+The environment `NORNIR_CONFIG_FILE` needs to be configured before running:
 ```bash
 export NORNIR_CONFIG_FILE=inventory/tutorial-1/config.yaml
 ```
