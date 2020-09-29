@@ -1,0 +1,44 @@
+---
+###### Routing Groups ######
+eigrp:
+  data:
+    routing: eigrp
+    as: 100
+ospf:
+  data:
+    routing: ospf
+rip:
+  data:
+    routing: rip
+###### Platform Groups ######
+ios:
+  platform: ios
+  connection_options:
+    netmiko:
+      platform: cisco_ios
+      extras: {}
+    napalm:
+      extras:
+        optional_args: {}
+
+nxos:
+  platform: nxos
+  connection_options:
+    netmiko:
+      platform: cisco_nxos
+      extras: {}
+    napalm:
+      port: 8443
+      extras:
+        optional_args: {}
+
+xr:
+  platform: xr
+  connection_options:
+    netmiko:
+      platform: cisco_xr
+      extras: {}
+    napalm:
+      port: 8443
+      extras:
+        optional_args: {}

@@ -20,14 +20,15 @@ source venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-The environment `NORNIR_CONFIG_FILE` needs to be configured before running:
+The environment `NORNIR_CONFIG_FILE` needs to be configured before running depends on where you
+keep your config file:
 ```bash
-export NORNIR_CONFIG_FILE=inventory/tutorial-1/config.yaml
+export NORNIR_CONFIG_FILE=inventory/ospf-eigrp-rip/config.yaml
 ```
-**NOTE - IMPORTANT**: Need to change the paths of `hosts_file`, `groups_file`, `defaults_file`
+**NOTE - IMPORTANT**: Need to change the paths of `host_file`, `group_file`, `defaults_file`
  in `config.yaml` file to your own paths - NEED TO FIX THIS.
 
-Some configuration files are under `inventory/tutorial-1` folder.
+Some configuration files are under `inventory/ospf-eigrp-rip` folder.
 - defaults.yaml
 - groups.yaml
 - hosts.yaml
@@ -59,3 +60,26 @@ Changes the `hosts.yaml` depending on your network topology.
 **NOTE**: This table formatting currently works only for `sh version` command.
 
 ![Alt text](images/04_sh_version_table.PNG)
+
+## Example Topologies
+
+### Topology 1: OSPF-EIGRP-RIP
+
+Configuration files under `inventory/ospf-eigrp-rip`
+
+![Alt text](images/00_topo1.png)
+
+### Topology 2: BGP
+
+Configuration files under `inventory/bgp`
+
+Steps:
+- Copy folder `inventory/ospf-eigrp-rip`, change name to `inventory/bgp`.
+- Change environment variable `export NORNIR_CONFIG_FILE=inventory/bgp/config.yaml`.
+- Change the paths of `host_file`, `group_file`, `defaults_file` in `config.yaml`.
+- Change configurations in `inventory/bgp/hosts.yaml` depends on new topology.
+- Configure interfaces: `python fastcli.py interfaces configure` for all devices; or for each device
+with `python fastcli.py interfaces configure --device R1`.
+- Check the interfaces configuration with `python fastcli.py show facts --command "sh ip int br"`.
+
+![Alt text](images/00_topo2.png)

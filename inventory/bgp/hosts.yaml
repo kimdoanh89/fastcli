@@ -1,0 +1,110 @@
+---
+# xrv9k:
+#     hostname: 192.168.65.15
+#     platform: cisco_xr
+#     username: admin
+#     password: cisco123
+#     groups:
+#         - xr
+#     data:
+#         interfaces: {"g0/0/0/0": "192.1.20.15/24", "g0/0/0/1": "192.1.30.15/24"}
+
+R1:
+    hostname: 192.168.65.151
+    groups:
+        - ospf
+        - eigrp
+        - ios
+    data:
+        # interfaces: {name: interface ip address, ...}
+        interfaces: {"e0/0": "192.1.12.1/24", "e0/1": "192.1.13.1/24",
+                     "s1/0": "192.1.14.1/24", "s1/1": "192.1.17.1/24",
+                     "lo0": "1.1.1.1/8", "lo11": "10.1.1.1/8"}
+        # eigrp_advertised: { autonomous system: [list of networks to be advertised], ...}
+        eigrp_advertised: {"100": ["192.1.17.0/24", "192.1.18.0/24", "11.0.0.0/8"]}
+        ospf_router_id: 1
+        ospf_area: [0]
+        # ospf_advertised: { area: [list of networks to be advertised], ...}
+        ospf_advertised: {"0": ["192.1.12.0/24", "192.1.13.0/24", "1.0.0.0/8"]}
+
+R2:
+    hostname: 192.168.65.152
+    groups:
+        - ospf
+    data:
+        interfaces: {"e0/0": "192.1.12.2/24", "e0/1": "192.1.23.2/24",
+                     "s1/0": "192.1.25.2/24",
+                     "lo0": "2.2.2.2/8", "lo11": "10.2.2.2/8"}
+        ospf_router_id: 2
+        ospf_area: [0, 10]
+        ospf_advertised: {"0": ["192.1.12.0/24", "2.0.0.0/8"], 
+                          "10": ["192.1.24.0/24", "22.0.0.0/8"]}
+
+
+R3:
+    hostname: 192.168.65.153
+    groups:
+        - ospf
+    data:
+        interfaces: {"e0/0": "192.1.23.3/24", "e0/1": "192.1.13.3/24",
+                     "s1/0": "192.1.36.3/24", "s1/1": "192.1.37.3/24",
+                     "lo0": "3.3.3.3/8", "lo11": "10.3.3.3/8"}
+        ospf_router_id: 3
+        ospf_area: [0, 20]
+        ospf_advertised: {"0": ["192.1.13.0/24", "3.0.0.0/8"],
+                          "20": ["192.1.35.0/24", "33.0.0.0/8"]}
+
+R4:
+    hostname: 192.168.65.154
+    groups:
+        - ospf
+    data:
+        interfaces: {"e0/0": "192.1.24.4/24", "e0/1": "192.1.40.4/24",
+                     "lo0": "4.4.4.4/8", "lo11": "44.44.44.44/8"}
+        ospf_router_id: 4
+        ospf_area: [10]
+        ospf_advertised: {"10": ["0.0.0.0/0"]}
+
+R5:
+    hostname: 192.168.65.155
+    groups:
+        - ospf
+    data:
+        interfaces: {"e0/0": "192.1.35.4/24", "e0/1": "192.1.56.4/24",
+                     "lo0": "5.5.5.5/8", "lo11": "55.55.55.55/8", 
+                     "lo201": "205.1.4.1/24", "lo202": "205.1.5.1/24", 
+                     "lo203": "205.1.6.1/24", "lo204": "205.1.7.1/24"}
+        ospf_router_id: 5
+        ospf_area: [20]
+        ospf_advertised: {"20": ["0.0.0.0/0"]}
+
+R6:
+    hostname: 192.168.65.156
+    groups:
+        - ospf
+        - rip
+    data:
+        # interfaces: {name: interface ip address, ...}
+        interfaces: {"e0/0": "192.1.56.6/24", "e0/1": "192.1.69.6/24",
+                     "lo0": "6.6.6.6/8", "lo11": "66.66.66.66/8"}
+        ospf_router_id: 6
+        ospf_area: [20]
+        # ospf_advertised: { area: [list of networks to be advertised], ...}
+        ospf_advertised: {"20": ["192.1.56.0/24", "6.0.0.0/8"]}
+        # rip_advertised: [list of networks to be advertised]
+        rip_advertised: ["192.1.69.0", "66.0.0.0"]
+
+R7:
+    hostname: 192.168.65.157
+    groups:
+        - eigrp
+    data:
+        # interfaces: {name: interface ip address, ...}
+        interfaces: {"e0/0": "192.1.17.7/24", "lo0": "7.7.7.7/8",
+                     "lo11": "77.77.77.77/24", "lo201": "207.1.4.1/24",
+                     "lo202": "207.1.5.1/24", "lo203": "207.1.6.1/24",
+                     "lo204": "207.1.7.1/24"
+                    }
+        # eigrp_advertised: { autonomous system: [list of networks to be advertised], ...}
+        eigrp_advertised: {"100": ["0.0.0.0/0"]}
+
