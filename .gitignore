@@ -1,0 +1,7 @@
+.venv
+.vscode
+venv/
+__pycache__/
+.mypy_cache/
+sdwan.py
+*.log
