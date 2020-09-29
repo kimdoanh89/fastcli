@@ -41,3 +41,18 @@ Changes the `hosts.yaml` depending on your network topology.
 | python fastcli.py ospf nssa --ospf_area 0            	| configure an OSPF area as Not-So-Stubby-Area                                                                          	|
 | python fastcli.py eigrp configure                    	| configure EIGRP routing of all the EIGRP routers                                                                      	|
 | python fastcli.py rip configure                      	| configure RIP routing of all the RIP routers                                                                          	|
+
+## Output
+
+### Configure interfaces
+
+![Alt text](images/00_configure_interfaces.png)
+
+### Configure ospf
+
+![Alt text](images/01_configure_ospf.png)
+
+### Collect facts and present in a table
+**NOTE**: This table formatting currently works only for `sh version` command.
+
+![Alt text](images/04_sh_version_table.PNG)

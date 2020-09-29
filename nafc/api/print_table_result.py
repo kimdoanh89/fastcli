@@ -29,10 +29,14 @@ def print_table_result(
         failed: if `True` assume the task failed
         severity_level: Print only errors with this severity level or higher
         parser: textfsm|genie -- parser to parse output with
-        to_dict: output structured data in dict form instead -- basically put k:v instead of just
-            lists of lists of values for textfsm output; ignored if parser == "genie"
-        fail_to_string: fallback to printing unstructured output or have tasks skipped (because
-            print_result won't print empty lists which scrapli returns if parsing fails)
+        to_dict: output structured data in dict form instead --
+        basically put k:v instead of just
+            lists of lists of values for textfsm output;
+            ignored if parser == "genie"
+        fail_to_string: fallback to printing unstructured output
+        or have tasks skipped (because
+            print_result won't print empty lists which scrapli
+            returns if parsing fails)
 
     """
     updated_agg_result = AggregatedResult(result.name)
