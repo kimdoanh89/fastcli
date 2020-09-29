@@ -24,6 +24,9 @@ The environment `NORNIR_CONFIG_FILE` needs to be configure before running:
 ```bash
 export NORNIR_CONFIG_FILE=inventory/tutorial-1/config.yaml
 ```
+**NOTE - IMPORTANT**: Need to change the paths of `hosts_file`, `groups_file`, `defaults_file`
+ in `config.yaml` file to your own paths - NEED TO FIX THIS.
+
 Some configuration files are under `inventory/tutorial-1` folder.
 - defaults.yaml
 - groups.yaml
