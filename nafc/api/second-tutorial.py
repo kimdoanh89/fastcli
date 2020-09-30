@@ -1,7 +1,7 @@
 from nornir import InitNornir
 from nornir_utils.plugins.functions import print_result
 from nornir_netmiko import netmiko_send_config
-import os
+from constants import config_file
 
 
 def redistribute_at_R1_config(task):
@@ -34,7 +34,6 @@ def route_summarization_at_R6(task):
 
 
 def main():
-    config_file = os.environ.get('NORNIR_CONFIG_FILE')
     nr = InitNornir(config_file=f"{config_file}")
     # Redistribute routes at R1
     nr5 = nr.filter(name="R1")

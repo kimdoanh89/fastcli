@@ -5,8 +5,8 @@ from nornir_utils.plugins.functions import print_result
 # from nornir_scrapli.tasks import send_configs as scrapli_send_configs
 # from nornir_napalm.plugins.tasks import napalm_configure
 from nornir_netmiko.tasks import netmiko_send_config
-import os
 import ipaddress
+from constants import config_file
 
 
 def ospf_config(task):
@@ -64,7 +64,7 @@ def cli_ospf():
     help="Filter the devices to be configured with <key, value>",
     required=False)
 def run_ospf_config(device, group, key, value):
-    config_file = os.environ.get('NORNIR_CONFIG_FILE')
+    # config_file = os.environ.get('NORNIR_CONFIG_FILE')
     nr = InitNornir(config_file=f"{config_file}")
     if device:
         nr = nr.filter(name=f"{device}")
@@ -80,7 +80,6 @@ def run_ospf_config(device, group, key, value):
 @click.option(
     "--ospf_area", help="Configure only the device", required=True, type=int)
 def run_stub_config(ospf_area):
-    config_file = os.environ.get('NORNIR_CONFIG_FILE')
     nr = InitNornir(config_file=f"{config_file}")
     nr = nr.filter(F(ospf_area__contains=int(ospf_area)))
     result = nr.run(task=stub_area_config, area=ospf_area)
@@ -93,7 +92,6 @@ def run_stub_config(ospf_area):
 @click.option(
     "--ospf_area", help="Configure only the device", required=True, type=int)
 def run_nssa_config(ospf_area):
-    config_file = os.environ.get('NORNIR_CONFIG_FILE')
     nr = InitNornir(config_file=f"{config_file}")
     nr = nr.filter(F(ospf_area__contains=int(ospf_area)))
     result = nr.run(task=not_so_stubby_area_config, area=ospf_area)

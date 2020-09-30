@@ -1,7 +1,7 @@
-import os
 from nornir import InitNornir
 from nornir.core.filter import F
 import ipaddress
+from constants import config_file
 
 
 def has_long_name(host):
@@ -14,7 +14,6 @@ def in_area0(host):
 
 select_hosts = ["R1", "R2"]
 
-config_file = os.environ.get('NORNIR_CONFIG_FILE')
 nr = InitNornir(config_file=f"{config_file}")
 
 print("Hosts: ", nr.inventory.hosts)
@@ -29,7 +28,6 @@ for key, values in nr.inventory.hosts["R6"]["nw_advertised"].items():
     for v in values:
         print("Area", key, ":", v)
         nw = ipaddress.ip_network(v)
-        # print(nw.network_address, nw.hostmask)
         print("network {} {} area {}".format(nw.network_address,
                                              nw.hostmask, key))
 

@@ -5,8 +5,8 @@ from nornir_utils.plugins.functions import print_result
 from nornir_scrapli.tasks import send_configs as scrapli_send_configs
 # from nornir_napalm.plugins.tasks import napalm_configure
 # from nornir_netmiko.tasks import netmiko_send_config
-import os
 import ipaddress
+from constants import config_file
 
 
 def interfaces_config(task):
@@ -50,7 +50,10 @@ def cli_interfaces():
     help="Filter the devices to be configured with <key, value>",
     required=False)
 def run_interfaces_config(device, group, key, value):
-    config_file = os.environ.get('NORNIR_CONFIG_FILE')
+    # config_file = os.environ.get('NORNIR_CONFIG_FILE')
+    # os.chdir('../')
+    # os.getcwd()
+    # breakpoint()
     nr = InitNornir(config_file=f"{config_file}")
     if device:
         nr = nr.filter(name=f"{device}")

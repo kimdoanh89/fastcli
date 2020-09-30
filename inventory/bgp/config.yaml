@@ -1,9 +1,9 @@
 inventory:
     plugin: SimpleInventory
     options:
-        host_file: "/home/doanhluong/projects/fastlab/inventory/bgp/hosts.yaml"
-        group_file: "/home/doanhluong/projects/fastlab/inventory/bgp/groups.yaml"
-        defaults_file: "/home/doanhluong/projects/fastlab/inventory/bgp/defaults.yaml"
+        host_file: "inventory/bgp/hosts.yaml"
+        group_file: "inventory/bgp/groups.yaml"
+        defaults_file: "inventory/bgp/defaults.yaml"
 runner:
     plugin: threaded
     options:

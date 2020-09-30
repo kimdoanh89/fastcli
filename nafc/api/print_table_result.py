@@ -2,7 +2,6 @@
 import logging
 import threading
 
-# from nornir_utils.plugins.functions.print_result import _print_result
 from scrapli.response import Response
 
 from nornir.core.task import AggregatedResult, MultiResult, Result
@@ -91,7 +90,7 @@ def print_table_result(
                               f'[magenta]{version["system_image"]}[/magenta]',
                               f'[yellow]{version["compiled_date"]}[/yellow]')
             except KeyError:
-                print("This command currently is not supported in Table format!!!")
+                print("This command is not supported in Table format!")
         if updated_multi_result:
             updated_agg_result[hostname] = updated_multi_result  # noqa
 

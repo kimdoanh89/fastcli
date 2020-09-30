@@ -5,8 +5,8 @@ from nornir_utils.plugins.functions import print_result
 # from nornir_scrapli.tasks import send_configs as scrapli_send_configs
 # from nornir_napalm.plugins.tasks import napalm_configure
 from nornir_netmiko.tasks import netmiko_send_config
-import os
 import ipaddress
+from constants import config_file
 
 
 def eigrp_config(task):
@@ -37,7 +37,6 @@ def cli_eigrp():
     "--group", default="eigrp", show_default=True,
     help="Configure all devices belong to the group", required=False)
 def run_eigrp_config(device, group):
-    config_file = os.environ.get('NORNIR_CONFIG_FILE')
     nr = InitNornir(config_file=f"{config_file}")
     if device:
         nr = nr.filter(name=f"{device}")

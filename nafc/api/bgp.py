@@ -3,7 +3,7 @@ from nornir import InitNornir
 from nornir.core.filter import F
 from nornir_utils.plugins.functions import print_result
 from nornir_netmiko.tasks import netmiko_send_config
-import os
+from constants import config_file
 
 
 def bgp_config(task):
@@ -35,7 +35,6 @@ def cli_bgp():
     "--group", default="bgp", show_default=True,
     help="Configure all devices belong to the group", required=False)
 def run_bgp_config(device, group):
-    config_file = os.environ.get('NORNIR_CONFIG_FILE')
     nr = InitNornir(config_file=f"{config_file}")
     if device:
         nr = nr.filter(name=f"{device}")
