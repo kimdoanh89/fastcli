@@ -2,8 +2,6 @@ import click
 from nornir import InitNornir
 from nornir.core.filter import F
 from nornir_utils.plugins.functions import print_result
-# from nornir_scrapli.tasks import send_configs as scrapli_send_configs
-# from nornir_napalm.plugins.tasks import napalm_configure
 from nornir_netmiko.tasks import netmiko_send_config
 import os
 
