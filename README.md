@@ -81,5 +81,7 @@ Steps:
 - Configure interfaces: `python fastcli.py interfaces configure` for all devices; or for each device
 with `python fastcli.py interfaces configure --device R1`.
 - Check the interfaces configuration with `python fastcli.py show facts --command "sh ip int br"`.
+- Configure BGP with `python fastcli.py bgp configure`.
+- Check with `python fastcli.py show facts --command "sh ip bgp" --group bgp`
 
 ![Alt text](images/00_topo2.png)

@@ -10,6 +10,9 @@ ospf:
 rip:
   data:
     routing: rip
+bgp:
+  data:
+    routing: bgp
 ###### Platform Groups ######
 ios:
   platform: ios

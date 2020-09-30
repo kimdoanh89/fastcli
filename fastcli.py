@@ -4,6 +4,7 @@ from nafc.api.show import cli_get
 from nafc.api.ospf import cli_ospf
 from nafc.api.eigrp import cli_eigrp
 from nafc.api.rip import cli_rip
+from nafc.api.bgp import cli_bgp
 
 
 @click.group()
@@ -18,6 +19,7 @@ cli.add_command(cli_get)
 cli.add_command(cli_ospf)
 cli.add_command(cli_eigrp)
 cli.add_command(cli_rip)
+cli.add_command(cli_bgp)
 
 
 if __name__ == "__main__":
