@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "fastlab"
+name = "nafc"
 version = "0.1.0"
 description = ""
 authors = ["kimdoanh89 <kimdoanh89@gmail.com>"]

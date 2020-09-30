@@ -1,5 +1,4 @@
 import click
-import os
 from nornir import InitNornir
 from nornir.core.filter import F
 from nornir_utils.plugins.functions import print_result
@@ -7,6 +6,7 @@ from nornir_scrapli.tasks import send_command as scrapli_send_command
 from nornir_scrapli.functions import print_structured_result
 from nafc.api.print_table_result import print_table_result
 # from nornir_netmiko.tasks import netmiko_send_command
+from constants import config_file
 
 
 def get_config(task, command):
@@ -38,7 +38,6 @@ def cli_get():
     "--value",
     help="Filter the devices to be configured with <key, value>")
 def run_get_config(command, structured, table, device, group, key, value):
-    config_file = os.environ.get('NORNIR_CONFIG_FILE')
     nr = InitNornir(config_file=f"{config_file}")
     if device:
         nr = nr.filter(name=f"{device}")

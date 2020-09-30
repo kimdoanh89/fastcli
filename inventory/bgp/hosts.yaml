@@ -7,10 +7,11 @@ R1:
         # interfaces: {name: interface ip address, ...}
         interfaces: {"e0/0": "192.1.12.1/24", "e0/1": "192.1.13.1/24",
                      "s1/0": "192.1.14.1/24", "s1/1": "192.1.17.1/24",
-                     "lo0": "1.1.1.1/8", "lo11": "10.1.1.1/8"}
+                     "lo0": "1.1.1.1/8", "lo1": "11.11.11.11/24",
+                     "lo11": "10.1.1.1/8"}
         asn: 1000
-        bgp_advertised: ['1.0.0.0']
-        # bgp_neighbors: {"asn": "list of remote AS's ip address", ...}
+        bgp_advertised: ['1.0.0.0/8', "11.11.11.0/24"]
+        # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
         bgp_neighbors: {"400": ["192.1.14.4"], "700": ["192.1.17.7"]}
 
 R2:
@@ -23,7 +24,7 @@ R2:
                      "lo0": "2.2.2.2/8", "lo11": "10.2.2.2/8"}
         asn: 1000
         bgp_advertised: ['2.0.0.0']
-        # bgp_neighbors: {"asn": "list of remote AS's ip address", ...}
+        # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
         bgp_neighbors: {"500": ["192.1.25.5"]}
 
 R3:
@@ -36,7 +37,7 @@ R3:
                      "lo0": "3.3.3.3/8", "lo11": "10.3.3.3/8"}
         asn: 1000
         bgp_advertised: ['3.0.0.0']
-        # bgp_neighbors: {"asn": "list of remote AS's ip address", ...}
+        # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
         bgp_neighbors: {"600": ["192.1.36.6"], "700": ["192.1.37.7"]}
 
 R4:
@@ -48,7 +49,7 @@ R4:
                      "lo0": "4.4.4.4/8", "lo11": "10.4.4.4/8"}
         asn: 400
         bgp_advertised: ['4.0.0.0']
-        # bgp_neighbors: {"asn": "list of remote AS's ip address", ...}
+        # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
         bgp_neighbors: {"1000": ["192.1.14.1"], "700": ["192.1.47.7"]}
 
 R5:
@@ -60,7 +61,7 @@ R5:
                      "lo0": "5.5.5.5/8", "lo11": "10.5.5.5/8"}
         asn: 500
         bgp_advertised: ['5.0.0.0']
-        # bgp_neighbors: {"asn": "list of remote AS's ip address", ...}
+        # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
         bgp_neighbors: {"1000": ["192.1.25.2"]}
 
 R6:
@@ -72,7 +73,7 @@ R6:
                      "lo0": "6.6.6.6/8", "lo11": "10.6.6.6/8"}
         asn: 600
         bgp_advertised: ['6.0.0.0']
-        # bgp_neighbors: {"asn": "list of remote AS's ip address", ...}
+        # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
         bgp_neighbors: {"1000": ["192.1.36.3"], "700": ["192.1.67.7"]}
 
 R7:
@@ -86,7 +87,7 @@ R7:
                      "lo0": "7.7.7.7/8", "lo11": "10.7.7.7/8"}
         asn: 700
         bgp_advertised: ['7.0.0.0']
-        # bgp_neighbors: {"asn": "list of remote AS's ip address", ...}
-        bgp_neighbors: {"1000": ["192.1.17.7", "192.1.37.3"],
+        # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
+        bgp_neighbors: {"1000": ["192.1.17.1", "192.1.37.3"],
                         "400": ["192.1.47.4"], "600": ["192.1.67.6"]}
 

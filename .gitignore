@@ -6,3 +6,4 @@ __pycache__/
 sdwan.py
 *.log
 texts/
+fastcli.egg-info/

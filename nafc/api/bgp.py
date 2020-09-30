@@ -4,6 +4,7 @@ from nornir.core.filter import F
 from nornir_utils.plugins.functions import print_result
 from nornir_netmiko.tasks import netmiko_send_config
 from constants import config_file
+import ipaddress
 
 
 def bgp_config(task):
@@ -13,7 +14,8 @@ def bgp_config(task):
     bgp_advertised = task.host['bgp_advertised']
     bgp_cms.append(f"router bgp {asn}")
     for nw in bgp_advertised:
-        bgp_cms.append(f"network {nw}")
+        nw = ipaddress.ip_network(nw)
+        bgp_cms.append(f"network {nw.network_address} mask {nw.netmask}")
     for key, values in bgp_neighbors.items():
         for v in values:
             bgp_cms.append(f"neighbor {v} remote-as {key}")
