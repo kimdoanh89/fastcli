@@ -1,9 +1,9 @@
 inventory:
     plugin: SimpleInventory
     options:
-        host_file: "/home/doanhluong/projects/fastlab/inventory/ospf-eigrp-rip/hosts.yaml"
-        group_file: "/home/doanhluong/projects/fastlab/inventory/ospf-eigrp-rip/groups.yaml"
-        defaults_file: "/home/doanhluong/projects/fastlab/inventory/ospf-eigrp-rip/defaults.yaml"
+        host_file: "inventory/ospf-eigrp-rip/hosts.yaml"
+        group_file: "inventory/ospf-eigrp-rip/groups.yaml"
+        defaults_file: "inventory/ospf-eigrp-rip/defaults.yaml"
 runner:
     plugin: threaded
     options:

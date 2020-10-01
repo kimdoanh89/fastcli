@@ -24,14 +24,14 @@ def eigrp_config(task):
 
 @click.group(name="eigrp")
 def cli_eigrp():
-    """Commands to configure interfaces of a device
+    """Command for EIGRP configuration
     """
     pass
 
 
 @cli_eigrp.command(
     name="configure",
-    help="Configure the Interfaces from the dictionary defined in hosts.yaml")
+    help="Configure EIGRP from the information defined in hosts.yaml")
 @click.option("--device", help="Configure only the device", required=False)
 @click.option(
     "--group", default="eigrp", show_default=True,

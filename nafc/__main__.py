@@ -9,7 +9,7 @@ from nafc.api.bgp import cli_bgp
 
 @click.group()
 def cli():
-    """Command line tool to interact with CISCO SDWAN vManage.
+    """CLI tool for fast configuration of the network, powerd by Nornir 3.0.
     """
     pass
 

@@ -7,6 +7,11 @@ from nornir_scrapli.tasks import send_configs as scrapli_send_configs
 # from nornir_netmiko.tasks import netmiko_send_config
 import ipaddress
 from constants import config_file
+import os
+
+
+def get_env_vars(ctx, args, incomplete):
+    return [k for k in os.environ.keys() if incomplete in k]
 
 
 def interfaces_config(task):
@@ -29,7 +34,7 @@ def interfaces_config(task):
 
 @click.group(name="interfaces")
 def cli_interfaces():
-    """Commands to configure interfaces of a device
+    """Command for interfaces configuration
     """
     pass
 
@@ -37,19 +42,14 @@ def cli_interfaces():
 @cli_interfaces.command(
     name="configure",
     help="Configure the Interfaces from the dictionary defined in hosts.yaml")
-@click.option("--device", help="Configure only the device", required=False)
+# @click.argument("device2", type=click.STRING, autocompletion=get_env_vars)
+@click.option(
+    "--device", help="Configure only the device", required=False,
+    autocompletion=get_env_vars)
 @click.option(
     "--group",
     help="Configure all devices belong to the group", required=False)
-@click.option(
-    "--key",
-    help="Filter the devices to be configured with <key, value>",
-    required=False)
-@click.option(
-    "--value",
-    help="Filter the devices to be configured with <key, value>",
-    required=False)
-def run_interfaces_config(device, group, key, value):
+def run_interfaces_config(device, group):
     # config_file = os.environ.get('NORNIR_CONFIG_FILE')
     # os.chdir('../')
     # os.getcwd()

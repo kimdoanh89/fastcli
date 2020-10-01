@@ -1,10 +1,48 @@
-# Nornir-3.0 - Network Automation Fast Configuration (NAFC)
+# Fastcli - A tool for network configuration - Nornir 3.0
 
+This public repo contains python codes of a CLI tool, called `fastcli`, for automatically generation of configuration commands and send these commands to the network. The current version supports the commands for interfaces configuration, OSPF, EIGRP, RIP and BGP configurations. 
+
+The environment is pre-configure for setting the BGP configuration of topology 1, under `inventory/bgp` folder.
+You can change the topology to be configured by change the variable in the `constants.py` file.
+
+```python
+config_file = "inventory/bgp/config.yaml"
+```
+
+A zip file `EVE-NG-topologies.zip` that contains 2 network topologies for testing purpose is attached.
+
+The `inventory/bgp` folder contains the following files described the desired state of the network, including:
+- config.yaml
+- defaults.yaml
+- groups.yaml
+- hosts.yaml
+
+The workflow is:
+- Defined the configuration information in `hosts.yaml`, including:
+  - List of interfaces and IP addresses of each device
+  - OSPF, BGP, EIGRP information
+- Run the configuration command `fastcli interfaces configure`, or `fastcli bgp configure`.
+- Commands will be automatically generated and sent to each device.
+- Confirm the configuration with `fastcli show facts --command "sh ip int br", 
+or `fastcli show facts --command "sh ip bgp"`.
+
+## Some commands supported
+| fastcli commands                           	| Usage                                                                                                                	|
+|--------------------------------------------	|----------------------------------------------------------------------------------------------------------------------	|
+| fastcli interfaces configure               	| configure the Interfaces of all the devices, can be filtered with --device, --group                                  	|
+| fastcli show facts --command "any command" 	| show facts with a given command, can be filtered with --device, --group, show <br> structured data with --structured 	|
+| fastcli ospf configure --ospf_area 0       	| configure OSPF routing of all the OSPF routers, can configure each area with: --ospf_area                            	|
+| fastcli ospf stub --ospf_area 0            	| configure an OSPF area as stub area                                                                                  	|
+| fastcli ospf nssa --ospf_area 0            	| configure an OSPF area as Not-So-Stubby-Area                                                                         	|
+| fastcli bgp eigrp configure                	| configure EIGRP routing of all the EIGRP routers                                                                     	|
+| fastcli rip configure                      	| configure RIP routing of all the RIP routers                                                                         	|
+| fastcli bgp configure                      	| configure BGP routing of all the BGP routers                                                                         	|
 ## Requirements
 
 To use this code you will need:
 
 - Python 3.8+
+- A network with SSH connection setup of all devices.
 
 ## Install and Setup
 Clone the code to local machine.
@@ -17,71 +55,70 @@ Setup Python Virtual Environment (requires Python 3.8+)
 ```bash
 python3.8 -m venv venv
 source venv/bin/activate
-pip3 install -r requirements.txt
+pip install --editable .
 ```
 
-The environment `NORNIR_CONFIG_FILE` needs to be configured before running depends on where you
-keep your config file:
-```bash
-export NORNIR_CONFIG_FILE=inventory/ospf-eigrp-rip/config.yaml
-```
-**NOTE - IMPORTANT**: Need to change the paths of `host_file`, `group_file`, `defaults_file`
- in `config.yaml` file to your own paths - NEED TO FIX THIS.
+The variable `config_file` in `constants.py` file needs to be configured before running depends on where you
+keep your config file.
 
-Some configuration files are under `inventory/ospf-eigrp-rip` folder.
-- defaults.yaml
-- groups.yaml
-- hosts.yaml
+## Example topologies
 
-Changes the `hosts.yaml` depending on your network topology.
+### Topology 1: BGP configuration
 
-## Some commands supported
-| fastcli commands                                     	| Usage                                                                                                                 	|
-|------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------	|
-| python fastcli.py interfaces configure               	| configure the Interfaces of all the devices, can be <br>  filtered with the keywords: --device, --group               	|
-| python fastcli.py show facts --command "any command" 	| show facts with a given command, can be filtered with <br>  --device, --group, show structured data with --structured 	|
-| python fastcli.py ospf configure --ospf_area 0       	| configure OSPF routing of all the OSPF routers, can <br>  configure each area with keyword: --ospf_area               	|
-| python fastcli.py ospf stub --ospf_area 0            	| configure an OSPF area as stub area                                                                                   	|
-| python fastcli.py ospf nssa --ospf_area 0            	| configure an OSPF area as Not-So-Stubby-Area                                                                          	|
-| python fastcli.py eigrp configure                    	| configure EIGRP routing of all the EIGRP routers                                                                      	|
-| python fastcli.py rip configure                      	| configure RIP routing of all the RIP routers                                                                          	|
+![Alt text](images/00_topo2.png)
 
-## Output
+Configuration files under `inventory/bgp`folder.
 
-### Configure interfaces
+Steps:
+- Check the config_file variable in `constants.py`
+  ```python
+  config_file = "inventory/bgp/config.yaml"
+  ```
+- Check the paths of `host_file`, `group_file`, `defaults_file` in `config.yaml`.
+- Define configurations in `inventory/bgp/hosts.yaml` depends on new topology.
+- Configure interfaces: `fastcli interfaces configure`.
+- Check the interfaces configuration with `fastcli show facts --command "sh ip int br"`.
 
-![Alt text](images/00_configure_interfaces.png)
+![Alt text](images/03_bgp_interfaces_config.png)
 
-### Configure ospf
 
-![Alt text](images/01_configure_ospf.png)
+- Configure BGP with `fastcli bgp configure`.
+- Check with `fastcli show facts --command "sh ip bgp" --group bgp`
 
-### Collect facts and present in a table
-**NOTE**: This table formatting currently works only for `sh version` command.
+![Alt text](images/03_bgp_configure.png)
 
-![Alt text](images/04_sh_version_table.PNG)
-
-## Example Topologies
-
-### Topology 1: OSPF-EIGRP-RIP
+### Topology 2: OSPF-EIGRP-RIP configuration
 
 Configuration files under `inventory/ospf-eigrp-rip`
 
 ![Alt text](images/00_topo1.png)
 
-### Topology 2: BGP
-
 Configuration files under `inventory/bgp`
 
 Steps:
-- Copy folder `inventory/ospf-eigrp-rip`, change name to `inventory/bgp`.
-- Change environment variable `export NORNIR_CONFIG_FILE=inventory/bgp/config.yaml`.
-- Change the paths of `host_file`, `group_file`, `defaults_file` in `config.yaml`.
-- Change configurations in `inventory/bgp/hosts.yaml` depends on new topology.
-- Configure interfaces: `python fastcli.py interfaces configure` for all devices; or for each device
-with `python fastcli.py interfaces configure --device R1`.
-- Check the interfaces configuration with `python fastcli.py show facts --command "sh ip int br"`.
-- Configure BGP with `python fastcli.py bgp configure`.
-- Check with `python fastcli.py show facts --command "sh ip bgp" --group bgp`
+- Check the config_file variable in `constants.py`
+  ```python
+  config_file = "inventory/ospf-eigrp-rip/config.yaml"
+  ```
+- Check the paths of `host_file`, `group_file`, `defaults_file` in `config.yaml`.
+- Change configurations in `inventory/ospf-eigrp-rip/hosts.yaml` depends on new topology.
+- Configure interfaces: `fastcli interfaces configure`.
+- Check the interfaces configuration with `fastcli show facts --command "sh ip int br"`.
 
-![Alt text](images/00_topo2.png)
+![Alt text](images/04_ospf_interfaces_config.png)
+
+- Configure OSPF with `fastcli ospf configure`.
+- Check with `fastcli show facts --command "sh run | s router ospf" --group ospf`
+
+![Alt text](images/04_ospf_configure.png)
+
+- Configure EIGRP with `fastcli eigrp configure`.
+- Check with `fastcli show facts --command "sh run | s router eigrp" --group eigrp`
+
+![Alt text](images/04_eigrp_config.png)
+
+- Configure RIP with `fastcli rip configure`.
+- Check with `fastcli show facts --command "sh run | s router rip" --group rip`
+
+![Alt text](images/04_rip_config.png)
+

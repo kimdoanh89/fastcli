@@ -2,8 +2,6 @@ import click
 from nornir import InitNornir
 from nornir.core.filter import F
 from nornir_utils.plugins.functions import print_result
-# from nornir_scrapli.tasks import send_configs as scrapli_send_configs
-# from nornir_napalm.plugins.tasks import napalm_configure
 from nornir_netmiko.tasks import netmiko_send_config
 from constants import config_file
 
@@ -21,14 +19,14 @@ def rip_config(task):
 
 @click.group(name="rip")
 def cli_rip():
-    """Commands to configure interfaces of a device
+    """Command for RIP configuration
     """
     pass
 
 
 @cli_rip.command(
     name="configure",
-    help="Configure the Interfaces from the dictionary defined in hosts.yaml")
+    help="Configure RIP from the information defined in hosts.yaml")
 @click.option("--device", help="Configure only the device", required=False)
 @click.option(
     "--group", default="rip", show_default=True,

@@ -24,14 +24,14 @@ def bgp_config(task):
 
 @click.group(name="bgp")
 def cli_bgp():
-    """Commands to configure interfaces of a device
+    """Command for BGP configuration
     """
     pass
 
 
 @cli_bgp.command(
     name="configure",
-    help="Configure the Interfaces from the dictionary defined in hosts.yaml")
+    help="Configure BGP from the information defined in hosts.yaml")
 @click.option("--device", help="Configure only the device", required=False)
 @click.option(
     "--group", default="bgp", show_default=True,
