@@ -11,11 +11,98 @@ config_file = "inventory/bgp/config.yaml"
 
 A zip file `EVE-NG-topologies.zip` that contains 2 network topologies for testing purpose is attached.
 
+### Initializing Nornir and Inventory
 The `inventory/bgp` folder contains the following files described the desired state of the network, including:
 - config.yaml
 - defaults.yaml
 - groups.yaml
 - hosts.yaml
+
+There is the tutorial from Nornir website that we need to understand about [initializing Nornir](https://nornir.readthedocs.io/en/latest/tutorial/initializing_nornir.html), [inventory](https://nornir.readthedocs.io/en/latest/tutorial/inventory.html).
+
+#### groups.yaml
+```yaml
+---
+###### Routing Groups ######
+eigrp:
+  data:
+    routing: eigrp
+    as: 100
+ospf:
+  data:
+    routing: ospf
+rip:
+  data:
+    routing: rip
+bgp:
+  data:
+    routing: bgp
+###### Platform Groups ######
+ios:
+  platform: ios
+  connection_options:
+    netmiko:
+      platform: cisco_ios
+      extras: {}
+    napalm:
+      extras:
+        optional_args: {}
+
+nxos:
+  platform: nxos
+  connection_options:
+    netmiko:
+      platform: cisco_nxos
+      extras: {}
+    napalm:
+      port: 8443
+      extras:
+        optional_args: {}
+
+xr:
+  platform: xr
+  connection_options:
+    netmiko:
+      platform: cisco_xr
+      extras: {}
+    napalm:
+      port: 8443
+      extras:
+        optional_args: {}
+```
+
+#### hosts.yaml
+
+```yaml
+---
+R1:
+    hostname: 192.168.65.151
+    groups:
+        - bgp
+    data:
+        # interfaces: {name: interface ip address, ...}
+        interfaces: {"e0/0": "192.1.12.1/24", "e0/1": "192.1.13.1/24",
+                     "s1/0": "192.1.14.1/24", "s1/1": "192.1.17.1/24",
+                     "lo0": "1.1.1.1/8", "lo1": "11.11.11.11/24",
+                     "lo11": "10.1.1.1/8"}
+        asn: 1000
+        bgp_advertised: ['1.0.0.0/8', "11.11.11.0/24"]
+        # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
+        bgp_neighbors: {"400": ["192.1.14.4"], "700": ["192.1.17.7"]}
+
+R2:
+    hostname: 192.168.65.152
+    groups:
+        - bgp
+    data:
+        interfaces: {"e0/0": "192.1.12.2/24", "e0/1": "192.1.23.2/24",
+                     "s1/0": "192.1.25.2/24",
+                     "lo0": "2.2.2.2/8", "lo11": "10.2.2.2/8"}
+        asn: 1000
+        bgp_advertised: ['2.0.0.0/8']
+        # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
+        bgp_neighbors: {"500": ["192.1.25.5"]}
+```
 
 The workflow is:
 - Defined the configuration information in `hosts.yaml`, including:
@@ -37,6 +124,58 @@ or `fastcli show facts --command "sh ip bgp"`.
 | fastcli bgp eigrp configure                	| configure EIGRP routing of all the EIGRP routers                                                                     	|
 | fastcli rip configure                      	| configure RIP routing of all the RIP routers                                                                         	|
 | fastcli bgp configure                      	| configure BGP routing of all the BGP routers                                                                         	|
+
+
+Currently, it supports the following commands:
+```bash
+fastcli
+Usage: fastcli [OPTIONS] COMMAND [ARGS]...
+
+  CLI tool for fast configuration of the network, powerd by Nornir 3.0.
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  bgp         Command for BGP configuration
+  eigrp       Command for EIGRP configuration
+  interfaces  Command for interfaces configuration
+  ospf        Commands for OSPF configuration
+  rip         Command for RIP configuration
+  show        Get information from all devices [], filtered by name or group
+```
+
+And for each command, it supports some subcommands, for example, `ospf` command:
+```bash
+fastcli ospf
+Usage: fastcli ospf [OPTIONS] COMMAND [ARGS]...
+
+  Commands for OSPF configuration
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  configure  Configure OSPF from the information defined in hosts.yaml
+  nssa       Configure an OSPF area as Not-So-Stubby-Area
+  stub       Configure an OSPF area as stub area
+```
+
+You can access the help of each subcommand to know about the arguments using `fastcli {command} {subcommand} --help`, for example:
+
+```bash
+fastcli ospf configure --help
+Usage: fastcli ospf configure [OPTIONS]
+
+  Configure OSPF from the information defined in hosts.yaml
+
+Options:
+  --device TEXT  Configure only the device
+  --group TEXT   Configure all devices belong to the group  [default: ospf]
+  --help         Show this message and exit.
+```
+
+
 ## Requirements
 
 To use this code you will need:
