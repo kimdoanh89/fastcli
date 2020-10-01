@@ -2,7 +2,7 @@
 
 This public repo contains python codes of a CLI tool, called `fastcli`, for automatically generation of configuration commands and send these commands to the network. The current version supports the commands for interfaces configuration, OSPF, EIGRP, RIP and BGP configurations. 
 
-The environment is pre-configure for setting the BGP configuration of topology 1, under `inventory/bgp` folder.
+The environment is pre-configured for setting the BGP configuration of topology 1, under `inventory/bgp` folder.
 You can change the topology to be configured by change the variable in the `constants.py` file.
 
 ```python
@@ -23,7 +23,7 @@ The workflow is:
   - OSPF, BGP, EIGRP information
 - Run the configuration command `fastcli interfaces configure`, or `fastcli bgp configure`.
 - Commands will be automatically generated and sent to each device.
-- Confirm the configuration with `fastcli show facts --command "sh ip int br", 
+- Confirm the configuration with `fastcli show facts --command "sh ip int br"`, 
 or `fastcli show facts --command "sh ip bgp"`.
 
 ## Some commands supported
@@ -67,7 +67,7 @@ keep your config file.
 
 ![Alt text](images/00_topo2.png)
 
-Configuration files under `inventory/bgp`folder.
+Configuration files under `inventory/bgp` folder.
 
 Steps:
 - Check the config_file variable in `constants.py`
@@ -93,7 +93,7 @@ Configuration files under `inventory/ospf-eigrp-rip`
 
 ![Alt text](images/00_topo1.png)
 
-Configuration files under `inventory/bgp`
+Configuration files under `inventory/bgp` folder.
 
 Steps:
 - Check the config_file variable in `constants.py`
