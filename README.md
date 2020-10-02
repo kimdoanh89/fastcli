@@ -36,6 +36,9 @@ rip:
 bgp:
   data:
     routing: bgp
+ibgp:
+  data:
+    routing: ibgp
 ###### Platform Groups ######
 ios:
   platform: ios
