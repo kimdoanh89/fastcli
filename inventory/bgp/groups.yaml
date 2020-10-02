@@ -3,7 +3,6 @@
 eigrp:
   data:
     routing: eigrp
-    as: 100
 ospf:
   data:
     routing: ospf
@@ -13,6 +12,9 @@ rip:
 bgp:
   data:
     routing: bgp
+ibgp:
+  data:
+    routing: ibgp
 ###### Platform Groups ######
 ios:
   platform: ios

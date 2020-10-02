@@ -3,42 +3,64 @@ R1:
     hostname: 192.168.65.151
     groups:
         - bgp
+        - ibgp
+        - eigrp
     data:
         # interfaces: {name: interface ip address, ...}
         interfaces: {"e0/0": "192.1.12.1/24", "e0/1": "192.1.13.1/24",
                      "s1/0": "192.1.14.1/24", "s1/1": "192.1.17.1/24",
                      "lo0": "1.1.1.1/8", "lo1": "11.11.11.11/24",
-                     "lo11": "10.1.1.1/8"}
+                     "lo11": "10.1.1.1/24"}
         asn: 1000
         bgp_advertised: ['1.0.0.0/8', "11.11.11.0/24"]
         # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
         bgp_neighbors: {"400": ["192.1.14.4"], "700": ["192.1.17.7"]}
+        # ibgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
+        ibgp_neighbors: {"1000": ["10.2.2.2"]}
+        # ibgp_update_source: {"update_source": ["list of remote AS's ip address"], ...}
+        ibgp_update_source: {"lo11": ["10.2.2.2"]}
+        eigrp_advertised: {"100": ["192.1.12.0/24", "192.1.13.0/24", "10.0.0.0/8"]}
 
 R2:
     hostname: 192.168.65.152
     groups:
         - bgp
+        - ibgp
+        - eigrp
     data:
         interfaces: {"e0/0": "192.1.12.2/24", "e0/1": "192.1.23.2/24",
                      "s1/0": "192.1.25.2/24",
-                     "lo0": "2.2.2.2/8", "lo11": "10.2.2.2/8"}
+                     "lo0": "2.2.2.2/8", "lo11": "10.2.2.2/24"}
         asn: 1000
         bgp_advertised: ['2.0.0.0/8']
         # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
         bgp_neighbors: {"500": ["192.1.25.5"]}
+        # ibgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
+        ibgp_neighbors: {"1000": ["10.1.1.1", "10.3.3.3"]}
+        # ibgp_update_source: {"update_source": ["list of remote AS's ip address"], ...}
+        ibgp_update_source: {"lo11": ["10.1.1.1", "10.3.3.3"]}
+        eigrp_advertised: {"100": ["192.1.12.0/24", "192.1.23.0/24", "10.0.0.0/8"]}
+        route_relector_clients: ["10.1.1.1", "10.3.3.3"]
 
 R3:
     hostname: 192.168.65.153
     groups:
         - bgp
+        - ibgp
+        - eigrp
     data:
         interfaces: {"e0/0": "192.1.23.3/24", "e0/1": "192.1.13.3/24",
                      "s1/0": "192.1.36.3/24", "s1/1": "192.1.37.3/24",
-                     "lo0": "3.3.3.3/8", "lo11": "10.3.3.3/8"}
+                     "lo0": "3.3.3.3/8", "lo11": "10.3.3.3/24"}
         asn: 1000
         bgp_advertised: ['3.0.0.0/8']
         # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
         bgp_neighbors: {"600": ["192.1.36.6"], "700": ["192.1.37.7"]}
+        # ibgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
+        ibgp_neighbors: {"1000": ["10.2.2.2"]}
+        # ibgp_update_source: {"update_source": ["list of remote AS's ip address"], ...}
+        ibgp_update_source: {"lo11": ["10.2.2.2"]}
+        eigrp_advertised: {"100": ["192.1.13.0/24", "192.1.23.0/24", "10.0.0.0/8"]}
 
 R4:
     hostname: 192.168.65.154
@@ -47,7 +69,7 @@ R4:
     data:
         interfaces: {"s1/0": "192.1.14.4/24", "s1/1": "192.1.47.4/24",
                      "lo0": "4.4.4.4/8", "lo1": "44.44.44.44/16", 
-                     "lo11": "10.4.4.4/8"}
+                     "lo11": "10.4.4.4/24"}
         asn: 400
         bgp_advertised: ['4.0.0.0/8', '44.44.0.0/16']
         # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
@@ -59,7 +81,7 @@ R5:
         - bgp
     data:
         interfaces: {"s1/0": "192.1.25.5/24",
-                     "lo0": "5.5.5.5/8", "lo11": "10.5.5.5/8",
+                     "lo0": "5.5.5.5/8", "lo11": "10.5.5.5/24",
                      "lo201": "205.1.4.1/24", "lo202": "205.1.5.1/24",
                      "lo203": "205.1.6.1/24", "lo204": "205.1.7.1/24"}
         asn: 500
@@ -73,7 +95,7 @@ R6:
         - bgp
     data:
         interfaces: {"s1/0": "192.1.36.6/24", "s1/1": "192.1.67.6/24",
-                     "lo0": "6.6.6.6/8", "lo11": "10.6.6.6/8"}
+                     "lo0": "6.6.6.6/8", "lo11": "10.6.6.6/24"}
         asn: 600
         bgp_advertised: ['6.0.0.0/8']
         # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
@@ -87,7 +109,7 @@ R7:
         # interfaces: {name: interface ip address, ...}
         interfaces: {"s1/0": "192.1.17.7/24", "s1/1": "192.1.37.7/24",
                      "s1/2": "192.1.47.7/24", "s1/3": "192.1.67.7/24",
-                     "lo0": "7.7.7.7/8", "lo11": "10.7.7.7/8"}
+                     "lo0": "7.7.7.7/8", "lo11": "10.7.7.7/24"}
         asn: 700
         bgp_advertised: ['7.0.0.0/8']
         # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}

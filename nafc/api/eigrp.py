@@ -15,6 +15,7 @@ def eigrp_config(task):
     for key, values in eigrp_advertised.items():
         cm = f"router eigrp {key}"
         eigrp_cms.append(cm)
+        eigrp_cms.append("no auto")
         for v in values:
             nw = ipaddress.ip_network(v)
             cm = f"network {nw.network_address} {nw.hostmask}"

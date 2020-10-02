@@ -3,7 +3,6 @@
 eigrp:
   data:
     routing: eigrp
-    as: 100
 ospf:
   data:
     routing: ospf

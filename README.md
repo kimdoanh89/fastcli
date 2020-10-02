@@ -27,7 +27,6 @@ There is the tutorial from Nornir website that we need to understand about [init
 eigrp:
   data:
     routing: eigrp
-    as: 100
 ospf:
   data:
     routing: ospf
@@ -72,36 +71,51 @@ xr:
 ```
 
 #### hosts.yaml
-
+Example of hosts.yaml file for Topology 1: BGP and EIGRP configuration
 ```yaml
 ---
 R1:
     hostname: 192.168.65.151
     groups:
         - bgp
+        - ibgp
+        - eigrp
     data:
         # interfaces: {name: interface ip address, ...}
         interfaces: {"e0/0": "192.1.12.1/24", "e0/1": "192.1.13.1/24",
                      "s1/0": "192.1.14.1/24", "s1/1": "192.1.17.1/24",
                      "lo0": "1.1.1.1/8", "lo1": "11.11.11.11/24",
-                     "lo11": "10.1.1.1/8"}
+                     "lo11": "10.1.1.1/24"}
         asn: 1000
         bgp_advertised: ['1.0.0.0/8', "11.11.11.0/24"]
         # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
         bgp_neighbors: {"400": ["192.1.14.4"], "700": ["192.1.17.7"]}
+        # ibgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
+        ibgp_neighbors: {"1000": ["10.2.2.2"]}
+        # ibgp_update_source: {"update_source": ["list of remote AS's ip address"], ...}
+        ibgp_update_source: {"lo11": ["10.2.2.2"]}
+        eigrp_advertised: {"100": ["192.1.12.0/24", "192.1.13.0/24", "10.0.0.0/8"]}
 
 R2:
     hostname: 192.168.65.152
     groups:
         - bgp
+        - ibgp
+        - eigrp
     data:
         interfaces: {"e0/0": "192.1.12.2/24", "e0/1": "192.1.23.2/24",
                      "s1/0": "192.1.25.2/24",
-                     "lo0": "2.2.2.2/8", "lo11": "10.2.2.2/8"}
+                     "lo0": "2.2.2.2/8", "lo11": "10.2.2.2/24"}
         asn: 1000
         bgp_advertised: ['2.0.0.0/8']
         # bgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
         bgp_neighbors: {"500": ["192.1.25.5"]}
+        # ibgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
+        ibgp_neighbors: {"1000": ["10.1.1.1", "10.3.3.3"]}
+        # ibgp_update_source: {"update_source": ["list of remote AS's ip address"], ...}
+        ibgp_update_source: {"lo11": ["10.1.1.1", "10.3.3.3"]}
+        eigrp_advertised: {"100": ["192.1.12.0/24", "192.1.23.0/24", "10.0.0.0/8"]}
+        route_relector_clients: ["10.1.1.1", "10.3.3.3"]
 ```
 
 The workflow is:
@@ -221,18 +235,27 @@ Steps:
 ![Alt text](images/03_bgp_interfaces_config.png)
 
 
-- Configure BGP with `fastcli bgp configure`.
+- Configure eBGP with `fastcli bgp external`.
 - Check with `fastcli show facts --command "sh ip bgp" --group bgp`
 
-![Alt text](images/03_bgp_configure.png)
+![Alt text](images/03_bgp_external.png)
+
+- Configure iBGP with `fastcli bgp internal`.
+- Check with `fastcli show facts --command "sh ip bgp" --group ibgp`
+
+![Alt text](images/03_bgp_internal.png)
+
+- Configure EIGRP with `fastcli eigrp configure`.
+- Check with `fastcli show facts --command "sh run | s router eigrp" --group eigrp`
+
+![Alt text](images/03_bgp_eigrp_config.png)
+
 
 ### Topology 2: OSPF-EIGRP-RIP configuration
 
-Configuration files under `inventory/ospf-eigrp-rip`
-
 ![Alt text](images/00_topo1.png)
 
-Configuration files under `inventory/bgp` folder.
+Configuration files under `inventory/ospf-eigrp-rip` folder.
 
 Steps:
 - Check the config_file variable in `constants.py`
