@@ -1,5 +1,7 @@
 # Fastcli - A tool for network configuration - Nornir 3.0
 
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/kimdoanh89/fastcli)
+
 This public repo contains python codes of a CLI tool, called `fastcli`, for automatically generation of configuration commands and send these commands to the network. The current version supports the commands for interfaces configuration, OSPF, EIGRP, RIP and BGP configurations. 
 
 The environment is pre-configured for setting the BGP configuration of topology 1, under `inventory/bgp` folder.
