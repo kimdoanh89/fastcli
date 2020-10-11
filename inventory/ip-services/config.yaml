@@ -1,0 +1,10 @@
+inventory:
+    plugin: SimpleInventory
+    options:
+        host_file: "inventory/ip-services/hosts.yaml"
+        group_file: "inventory/ip-services/groups.yaml"
+        defaults_file: "inventory/ip-services/defaults.yaml"
+runner:
+    plugin: threaded
+    options:
+        num_workers: 100
