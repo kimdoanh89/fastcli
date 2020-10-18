@@ -1,0 +1,80 @@
+devices:
+  R1:
+    connections:
+      cli:
+        ip: 192.168.65.151
+        protocol: ssh
+    credentials:
+      default:
+        password: '%ENC{w5HDncOOw53DoQ==}'
+        username: admin
+    os: ios
+    type: ios
+  R2:
+    connections:
+      cli:
+        ip: 192.168.65.152
+        protocol: ssh
+    credentials:
+      default:
+        password: '%ENC{w5HDncOOw53DoQ==}'
+        username: admin
+    os: ios
+    type: ios
+  R3:
+    connections:
+      cli:
+        ip: 192.168.65.153
+        protocol: ssh
+    credentials:
+      default:
+        password: '%ENC{w5HDncOOw53DoQ==}'
+        username: admin
+    os: ios
+    type: ios
+  R4:
+    connections:
+      cli:
+        ip: 192.168.65.154
+        protocol: ssh
+    credentials:
+      default:
+        password: '%ENC{w5HDncOOw53DoQ==}'
+        username: admin
+    os: ios
+    type: ios
+  R5:
+    connections:
+      cli:
+        ip: 192.168.65.155
+        protocol: ssh
+    credentials:
+      default:
+        password: '%ENC{w5HDncOOw53DoQ==}'
+        username: admin
+    os: ios
+    type: ios
+  R6:
+    connections:
+      cli:
+        ip: 192.168.65.156
+        protocol: ssh
+    credentials:
+      default:
+        password: '%ENC{w5HDncOOw53DoQ==}'
+        username: admin
+    os: ios
+    type: ios
+  R7:
+    connections:
+      cli:
+        ip: 192.168.65.157
+        protocol: ssh
+    credentials:
+      default:
+        password: '%ENC{w5HDncOOw53DoQ==}'
+        username: admin
+    os: ios
+    type: ios
+
+

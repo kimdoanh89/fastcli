@@ -81,14 +81,15 @@ def print_table_result(
                 updated_multi_result.append(updated_result)
             try:
                 version = structured_result['version']
-                table.add_row(f'[green]{version["hostname"]}[/green]',
-                              f'[blue]{version["version"]}[/blue]',
-                              f'[magenta]{version["platform"]}[/magenta]',
-                              f'[cyan]{version["image_id"]}[/cyan]',
-                              f'[orange1]{version["image_type"]}[/orange1]',
-                              f'[bright_green]{version["uptime"]}[/bright_green]',
-                              f'[magenta]{version["system_image"]}[/magenta]',
-                              f'[yellow]{version["compiled_date"]}[/yellow]')
+                table.add_row(
+                    f'[green]{version["hostname"]}[/green]',
+                    f'[blue]{version["version"]}[/blue]',
+                    f'[magenta]{version["platform"]}[/magenta]',
+                    f'[cyan]{version["image_id"]}[/cyan]',
+                    f'[orange1]{version["image_type"]}[/orange1]',
+                    f'[bright_green]{version["uptime"]}[/bright_green]',
+                    f'[magenta]{version["system_image"]}[/magenta]',
+                    f'[yellow]{version["compiled_date"]}[/yellow]')
             except KeyError:
                 print("This command is not supported in Table format!")
         if updated_multi_result:

@@ -7,3 +7,4 @@ sdwan.py
 *.log
 texts/
 fastcli.egg-info/
+output/

@@ -16,6 +16,8 @@ scrapli-ssh2 = "^2020.6.6"
 scrapli = {extras = ["genie"], version = "^2020.9.26"}
 nornir_napalm = "^0.1.1"
 rich = "^7.1.0"
+pyats = {extras = ["full"], version = "^20.9"}
+packaging = "^20.4"
 
 [tool.poetry.dev-dependencies]
 bpython = "^0.19"
