@@ -213,6 +213,7 @@ Setup Python Virtual Environment (requires Python 3.8+)
 ```bash
 python3.8 -m venv venv
 source venv/bin/activate
+pip install -r requirements.txt
 pip install --editable .
 ```
 
@@ -289,3 +290,19 @@ Steps:
 
 ![Alt text](images/04_rip_config.png)
 
+## Testing pyATS
+Create testbed.yaml
+
+```bash
+```
+
+Capture Golden Config
+```bash
+pyats learn config --testbed-file inventory/bgp/testbed.yaml --output inventory/bgp/output/golden-config
+```
+
+Learn interface, ospf, bgp
+
+```bash
+pyats learn ospf bgp interface --testbed-file inventory/bgp/testbed.yaml --output inventory/bgp/output
+```
