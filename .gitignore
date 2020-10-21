@@ -8,3 +8,5 @@ sdwan.py
 texts/
 fastcli.egg-info/
 output/
+poetry.lock
+pyproject.toml
