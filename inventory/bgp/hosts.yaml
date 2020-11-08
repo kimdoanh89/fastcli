@@ -1,6 +1,6 @@
 ---
 R1:
-    hostname: 192.168.65.151
+    hostname: 192.168.128.151
     groups:
         - bgp
         - ibgp
@@ -22,7 +22,7 @@ R1:
         eigrp_advertised: {"100": ["192.1.12.0/24", "192.1.13.0/24", "10.0.0.0/8"]}
 
 R2:
-    hostname: 192.168.65.152
+    hostname: 192.168.128.152
     groups:
         - bgp
         - ibgp
@@ -43,7 +43,7 @@ R2:
         route_relector_clients: ["10.1.1.1", "10.3.3.3"]
 
 R3:
-    hostname: 192.168.65.153
+    hostname: 192.168.128.153
     groups:
         - bgp
         - ibgp
@@ -63,7 +63,7 @@ R3:
         eigrp_advertised: {"100": ["192.1.13.0/24", "192.1.23.0/24", "10.0.0.0/8"]}
 
 R4:
-    hostname: 192.168.65.154
+    hostname: 192.168.128.154
     groups:
         - bgp
     data:
@@ -76,7 +76,7 @@ R4:
         bgp_neighbors: {"1000": ["192.1.14.1"], "700": ["192.1.47.7"]}
 
 R5:
-    hostname: 192.168.65.155
+    hostname: 192.168.128.155
     groups:
         - bgp
     data:
@@ -90,7 +90,7 @@ R5:
         bgp_neighbors: {"1000": ["192.1.25.2"]}
 
 R6:
-    hostname: 192.168.65.156
+    hostname: 192.168.128.156
     groups:
         - bgp
     data:
@@ -102,7 +102,7 @@ R6:
         bgp_neighbors: {"1000": ["192.1.36.3"], "700": ["192.1.67.7"]}
 
 R7:
-    hostname: 192.168.65.157
+    hostname: 192.168.128.157
     groups:
         - bgp
     data:

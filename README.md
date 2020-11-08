@@ -202,6 +202,11 @@ To use this code you will need:
 - Python 3.8+
 - A network with SSH connection setup of all devices.
 
+Ubuntu packages:
+```bash
+sudo apt install sqlite3
+```
+
 ## Install and Setup
 Clone the code to local machine.
 ```bash
