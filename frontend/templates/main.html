@@ -28,17 +28,12 @@
               <th scope="col">Author</th>
               <th scope="col">Created Date</th>
               <th scope="col">Config File Location</th>
-              <th scope="col">Total Ports</th>
-              <th scope="col">Ports In Use</th>
-              <th scope="col">Ports Down</th>
-              <th scope="col">Ports Disabled</th>
-              <th scope="col">Capacity</th>
            </tr>
         </thead>
         <tbody>
             {% for project in projects %}
             <tr>
-                <td> {{ project.name }} </td>
+                <td>&#11166; <a href={{ project.id }}>{{ project.name }}</a></td>
                 <td> {{ project.id }} </td>
                 <td> {{ project.author }} </td>
                 <td> {{ project.date }} </td>
