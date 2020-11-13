@@ -4,22 +4,6 @@ from frontend.forms import RegistrationForm, LoginForm, ProjectForm
 from frontend.models import User, Project
 from flask_login import login_user, current_user, logout_user
 
-projects = [
-    {
-        'id' : 1,
-        'name': 'BGP',
-        'author': 'Doanh',
-        'date': '20-Jul-2020',
-        'config_file': 'inventory/bgp/config.yaml'
-    },
-    {
-        'id' : 2,
-        'name': 'OSPF',
-        'author': 'Dan',
-        'date': '21-Jul-2020',
-        'config_file': 'inventory/ospf-eigrp-rip/config.yaml'
-    }
-]
 
 @app.route('/project')
 def project():
@@ -29,7 +13,9 @@ def project():
 def add_project():
     form = ProjectForm()
     if form.validate_on_submit():
-        project = Project(name=form.name.data, description=form.description.data, config_file=form.configFile.data, user_id=current_user.id)
+        project = Project(name=form.name.data, description=form.description.data,
+                          config_file=form.configFile.data, user_id=current_user.id,
+                          inventory_file=form.inventoryFile.data)
         db.session.add(project)
         db.session.commit()
         flash('New project has been created!', 'success')
@@ -81,4 +67,4 @@ def project_info(id):
     This page shows detailed stats on an individual project
     queried by project id
     """
-    return render_template('project_detail.html', project=projects[0])
+    return render_template('project_detail.html', project=Project.query.filter_by(id=id).first())

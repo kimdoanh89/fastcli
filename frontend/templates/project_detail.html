@@ -1,4 +1,4 @@
-{%- extends "base.html" %}
+{% extends "base.html" %}
 <body>
    {% block content %}
    <div class="container">
@@ -21,6 +21,31 @@
                <a class="nav-link" data-toggle="tab" href="#rawoutput">Raw Output</a>
             </li>
          </ul>
+         <div id="myTabContent" class="tab-content">
+            <div class="tab-pane active" id="devicelist">
+               <table class="table table-hover">
+                  <thead>
+                     <tr>
+                        <th scope="col">Hostname</th>
+                        <th scope="col">Management IP</th>
+                        <th scope="col">Version</th>
+                        <th scope="col">Platform</th>
+                        <th scope="col">Image ID</th>
+                     </tr>
+                  </thead>
+               </table>
+            </div>
+            <div class="tab-pane" id="portdetail">
+               <div class="row">
+                  <p>Port Detail</p>
+               </div>
+            </div>
+            <div class="tab-pane" id="rawoutput">
+               <div class="row">
+                  <p>Raw output</p>
+               </div>
+            </div>
+         </div>
       </div>
    </div>
 

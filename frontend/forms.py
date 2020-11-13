@@ -38,6 +38,7 @@ class ProjectForm(FlaskForm):
                            validators=[DataRequired(), Length(min=2, max=50)])
     description = StringField('Description')
     configFile = StringField('Config File*')
+    inventoryFile = StringField('Inventory File*')
     submit = SubmitField('Save')
     def validate_name(self, name):
         name = Project.query.filter_by(name=name.data).first()

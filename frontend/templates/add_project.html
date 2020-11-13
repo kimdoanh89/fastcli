@@ -46,6 +46,19 @@
                             {{ form.configFile(class="form-control form-control-lg") }}
                         {% endif %}
                     </div>
+                    <div class="form-group">
+                        {{ form.inventoryFile.label(class="form-control-label") }}
+                        {% if form.inventoryFile.errors %}
+                            {{ form.inventoryFile(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.inventoryFile.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.inventoryFile(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
                 </fieldset>
                 <div class="form-group">
                     {{ form.submit(class="btn btn-outline-info") }}

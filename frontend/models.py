@@ -14,7 +14,9 @@ class Project(db.Model):
     description = db.Column(db.String(200))
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     config_file = db.Column(db.Text, nullable=False)
+    inventory_file = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    devices = db.relationship('Device', backref='project', lazy=True)
 
     def __repr__(self):
         return f"Project('{self.name}', '{self.date_created}', '{self.config_file}')"
@@ -29,3 +31,17 @@ class User(db.Model, UserMixin):
     
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+
+class Device(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    management_ip = db.Column(db.String(50), nullable=False)
+
+    def __repr__(self):
+        return f"Device('{self.name}', Project ID: '{self.project_id}', Managemet IP: '{self.management_ip}')"
+    
+    def add_device(name, project_id, management_ip):
+        device = Device(name=name, project_id=project_id, management_ip=management_ip)
+        db.session.add(device)
+        db.commit()
