@@ -2,13 +2,13 @@
 
 <body>
     {% block content %}
-        <h1> About Page </h1>
-        <p>This public repo contains python codes of a CLI tool, called `fastcli`, for automatically generation of configuration commands and send these commands to the network. </p>
-        <p>The current version supports the commands for interfaces configuration, OSPF, EIGRP, RIP and BGP configurations. </p>
+        <div class="container">
+            <h1> About Page </h1>
+            <p>This public repo contains python codes of a CLI tool, called `fastcli`, for automatically generation of configuration commands and send these commands to the network. </p>
+            <p>The current version supports the commands for interfaces configuration, OSPF, EIGRP, RIP and BGP configurations. </p>
 
-            The environment is pre-configured for setting the BGP configuration of topology 1, under `inventory/bgp` folder.
-            You can change the topology to be configured by change the variable in the `constants.py` file.
-
-        
+                The environment is pre-configured for setting the BGP configuration of topology 1, under `inventory/bgp` folder.
+                You can change the topology to be configured by change the variable in the `constants.py` file.
+        </div>
     {% endblock %}
 </body>

@@ -3,11 +3,26 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
        <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
              <a class="nav-link" href="/about">About</a>
           </li>
+          {% if current_user.is_authenticated %}
+            <li class="nav-item active">
+               <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            <li class="nav-item active">
+               <a class="nav-link" href="/project">Project <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+               <a class="nav-link" href="/add_project">Add New Project</a>
+            </li>
+          {% else %}
+            <li class="nav-item active">
+               <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item active">
+               <a class="nav-link" href="/register">Register</a>
+            </li>
+          {% endif %}
        </ul>
     </div>
 </nav>
