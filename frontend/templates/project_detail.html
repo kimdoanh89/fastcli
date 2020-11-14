@@ -8,6 +8,9 @@
          </div>
       </div>
    </div>
+   <!-- <div class="container">
+      <button type="button">Load Devices</button>
+   </div> -->
    <div class="container">
       <div class="jumbotron">
          <ul class="nav nav-tabs">
@@ -23,6 +26,7 @@
          </ul>
          <div id="myTabContent" class="tab-content">
             <div class="tab-pane active" id="devicelist">
+               <!-- <button type="button">Load Devices</button> -->
                <table class="table table-hover">
                   <thead>
                      <tr>
@@ -33,6 +37,14 @@
                         <th scope="col">Image ID</th>
                      </tr>
                   </thead>
+                  <tbody>
+                     {% for device in project.devices %}
+                     <tr>
+                         <td> {{ device.name}} </td>
+                         <td> {{ device.management_ip }} </td>
+                     </tr>
+                     {% endfor %}
+                 </tbody>
                </table>
             </div>
             <div class="tab-pane" id="portdetail">

@@ -3,7 +3,7 @@
    {% block styles %}
    {{super()}}
    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.css')}}">
-   <link rel="icon" type="image/png" href="static/cli.png">
+   <link rel="icon" type="image/png" href="{{url_for('static', filename='static/cli.png')}}">
    {% endblock %}
    {% block title %}
    {% if title %}
@@ -14,21 +14,4 @@
    {% endblock %}
    {% include 'nav.html' %}
 </head>
-<body>
-   <main role="main" class="container">
-      <div class="row">
-        <div class="col-md-8">
-          {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-              {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                  {{ message }}
-                </div>
-              {% endfor %}
-            {% endif %}
-          {% endwith %}
-        </div>
-        </div>
-      </div>
-    </main>
-</body>
+

@@ -1,26 +1,10 @@
 from frontend import app, db, bcrypt
 from flask import render_template, flash, redirect, url_for
 from frontend.forms import RegistrationForm, LoginForm, ProjectForm
-from frontend.models import User, Project
+from frontend.models import User, Project, Device
 from flask_login import login_user, current_user, logout_user
+import yaml
 
-
-@app.route('/project')
-def project():
-    return render_template('project.html', projects=current_user.projects)
-
-@app.route('/add_project', methods=['GET', 'POST'])
-def add_project():
-    form = ProjectForm()
-    if form.validate_on_submit():
-        project = Project(name=form.name.data, description=form.description.data,
-                          config_file=form.configFile.data, user_id=current_user.id,
-                          inventory_file=form.inventoryFile.data)
-        db.session.add(project)
-        db.session.commit()
-        flash('New project has been created!', 'success')
-        return redirect(url_for('project'))
-    return render_template('add_project.html', title='Add Project', form=form)
 
 @app.route('/about')
 def about():
@@ -61,7 +45,31 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@app.route('/<id>', methods=['GET'])
+
+@app.route('/project')
+def project():
+    return render_template('project.html', projects=current_user.projects)
+
+@app.route('/add_project', methods=['GET', 'POST'])
+def add_project():
+    form = ProjectForm()
+    if form.validate_on_submit():
+        project = Project(name=form.name.data, description=form.description.data,
+                          config_file=form.configFile.data, user_id=current_user.id,
+                          inventory_file=form.inventoryFile.data)
+        db.session.add(project)
+        db.session.commit()
+        # flash('New project has been created!', 'success')
+        with open(form.inventoryFile.data, 'r') as f:
+            devicelist = yaml.full_load(f)
+        for hostname, values in devicelist.items():
+            device = Device(name=hostname, project_id=project.id, management_ip=values['hostname'])
+            db.session.add(device)
+            db.session.commit()
+        return redirect(url_for('project'))
+    return render_template('add_project.html', title='Add Project', form=form)
+
+@app.route('/project/<id>', methods=['GET'])
 def project_info(id):
     """
     This page shows detailed stats on an individual project
