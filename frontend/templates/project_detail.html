@@ -18,10 +18,10 @@
                <a class="nav-link active" data-toggle="tab" href="#devicelist">Device Lists</a>
             </li>
             <li class="nav-item">
-               <a class="nav-link" data-toggle="tab" href="#portdetail">Port Detail</a>
+               <a class="nav-link" data-toggle="tab" href="#configure">Configure</a>
             </li>
             <li class="nav-item">
-               <a class="nav-link" data-toggle="tab" href="#rawoutput">Raw Output</a>
+               <a class="nav-link" data-toggle="tab" href="#current_config">Current Configuration</a>
             </li>
          </ul>
          <div id="myTabContent" class="tab-content">
@@ -42,18 +42,24 @@
                      <tr>
                          <td> {{ device.name}} </td>
                          <td> {{ device.management_ip }} </td>
+                         <td> {{ device.version }} </td>
+                         <td> {{ device.platform }} </td>
+                         <td> {{ device.image_id }} </td>
                      </tr>
                      {% endfor %}
                  </tbody>
                </table>
             </div>
-            <div class="tab-pane" id="portdetail">
-               <div class="row">
-                  <p>Port Detail</p>
-               </div>
+            <div class="tab-pane" id="configure">
+               <div class="btn-group-vertical">
+                  <button type="button" class="btn btn-outline-primary">Primary</button>
+                  <button type="button" class="btn btn-outline-primary">Primary</button>
+                  <button type="button" class="btn btn-outline-primary">Primary</button>
+                  <button type="button" class="btn btn-outline-primary">Primary</button>
+                  </div>
             </div>
-            <div class="tab-pane" id="rawoutput">
-               <div class="row">
+            <div class="tab-pane" id="current_config">
+               <div class="jumbotron">
                   <p>Raw output</p>
                </div>
             </div>

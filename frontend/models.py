@@ -35,6 +35,9 @@ class User(db.Model, UserMixin):
 class Device(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
+    version = db.Column(db.String(100), nullable=False, default='-')
+    platform = db.Column(db.String(100), nullable=False, default='-')
+    image_id = db.Column(db.String(100), nullable=False, default='-')
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
     management_ip = db.Column(db.String(50), nullable=False)
 
