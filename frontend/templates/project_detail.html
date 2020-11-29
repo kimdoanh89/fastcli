@@ -1,71 +1,106 @@
 {% extends "base.html" %}
-<body>
-   {% block content %}
-   <div class="container">
-      <div class="col-lg-12">
-         <div class="page-header">
-            <h1>Project Detail<small class="text-muted"> for {{ project.name }} </small></h1>
+{% block content %}
+<div class="row mb-5">
+   <div class="col-lg-1">
+       <div class="bs-component">
+           <ul class="nav nav-pills flex-column navbar-dark">
+               <li class="nav-item">
+                  <a class="nav-link" href="/project/{{ project.id }}">Dashboard</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="#">Monitor</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="/project/{{ project.id }}/configure">Configuration</a>
+              </li>
+               <!-- <li class="nav-item dropdown">
+                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuration</a>
+                 <div class="dropdown-menu">
+                   <a class="dropdown-item" href="/configure">Action</a>
+                   <a class="dropdown-item" href="#">Another action</a>
+                   <a class="dropdown-item" href="#">Something else here</a>
+                   <div class="dropdown-divider"></div>
+                   <a class="dropdown-item" href="#">Separated link</a>
+                 </div>
+               </li> -->
+               <li class="nav-item">
+                   <a class="nav-link" href="#">Tools</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="#">Maintenance</a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link disabled" href="#">Disabled</a>
+               </li>
+           </ul>
+       </div>
+       
+   </div>
+   <div class="col-lg-10">
+      <div class="container">
+         <div class="col-lg-12">
+            <div class="page-header">
+               <h1>Project Detail<small class="text-muted"> for {{ project.name }} </small></h1>
+            </div>
          </div>
       </div>
-   </div>
-   <!-- <div class="container">
-      <button type="button">Load Devices</button>
-   </div> -->
-   <div class="container">
-      <div class="jumbotron">
-         <ul class="nav nav-tabs">
-            <li class="nav-item">
-               <a class="nav-link active" data-toggle="tab" href="#devicelist">Device Lists</a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link" data-toggle="tab" href="#configure">Configure</a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link" data-toggle="tab" href="#current_config">Current Configuration</a>
-            </li>
-         </ul>
-         <div id="myTabContent" class="tab-content">
-            <div class="tab-pane active" id="devicelist">
-               <!-- <button type="button">Load Devices</button> -->
-               <table class="table table-hover">
-                  <thead>
-                     <tr>
-                        <th scope="col">Hostname</th>
-                        <th scope="col">Management IP</th>
-                        <th scope="col">Version</th>
-                        <th scope="col">Platform</th>
-                        <th scope="col">Image ID</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     {% for device in project.devices %}
-                     <tr>
-                         <td> {{ device.name}} </td>
-                         <td> {{ device.management_ip }} </td>
-                         <td> {{ device.version }} </td>
-                         <td> {{ device.platform }} </td>
-                         <td> {{ device.image_id }} </td>
-                     </tr>
-                     {% endfor %}
-                 </tbody>
-               </table>
-            </div>
-            <div class="tab-pane" id="configure">
-               <div class="btn-group-vertical">
-                  <button type="button" class="btn btn-outline-primary">Primary</button>
-                  <button type="button" class="btn btn-outline-primary">Primary</button>
-                  <button type="button" class="btn btn-outline-primary">Primary</button>
-                  <button type="button" class="btn btn-outline-primary">Primary</button>
+      <div class="container">
+         <div class="jumbotron">
+            <ul class="nav nav-tabs">
+               <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#devicelist">Device Lists</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#configure">Configure</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#current_config">Current Configuration</a>
+               </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+               <div class="tab-pane active" id="devicelist">
+                  <table class="table table-hover">
+                     <thead>
+                        <tr>
+                           <th scope="col">Hostname</th>
+                           <th scope="col">Management IP</th>
+                           <th scope="col">Version</th>
+                           <th scope="col">Platform</th>
+                           <th scope="col">Image ID</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {% for device in project.devices %}
+                        <tr>
+                              <td> {{ device.name}} </td>
+                              <td> {{ device.management_ip }} </td>
+                              <td> {{ device.version }} </td>
+                              <td> {{ device.platform }} </td>
+                              <td> {{ device.image_id }} </td>
+                        </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               </div>
+               <div class="tab-pane" id="configure">
+                  <div class="btn-group-vertical">
+                     <button type="button" class="btn btn-outline-primary">Primary</button>
+                     <button type="button" class="btn btn-outline-primary">Primary</button>
+                     <button type="button" class="btn btn-outline-primary">Primary</button>
+                     <button type="button" class="btn btn-outline-primary">Primary</button>
+                     </div>
+               </div>
+               <div class="tab-pane" id="current_config">
+                  <div class="jumbotron">
+                     <p>Raw output</p>
                   </div>
-            </div>
-            <div class="tab-pane" id="current_config">
-               <div class="jumbotron">
-                  <p>Raw output</p>
                </div>
             </div>
          </div>
       </div>
-   </div>
 
-   {% endblock %}
-</body>
+   </div>
+ </div>
+
+
+{% endblock %}

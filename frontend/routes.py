@@ -76,3 +76,13 @@ def project_info(id):
     queried by project id
     """
     return render_template('project_detail.html', project=Project.query.filter_by(id=id).first())
+
+@app.route('/project/<id>/configure', methods=['GET', 'POST'])
+def configure(id):
+    return render_template('configure_project.html', title='Configure Project', project=Project.query.filter_by(id=id).first())
+
+
+@app.route('/project/<id>/configure/<device>', methods=['GET', 'POST'])
+def current_configure(id, device):
+    return render_template('configure_project.html', title='Configure Project', project=Project.query.filter_by(id=id).first(),
+                           device=Device.query.filter_by(project_id=id, name=device).first())

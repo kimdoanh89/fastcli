@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row mb-5">
+    <div class="col-lg-1">
+        <div class="bs-component">
+            <ul class="nav nav-pills flex-column navbar-dark">
+                <li class="nav-item">
+                    <a class="nav-link" href="/project/{{ project.id }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Monitor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/project/{{ project.id }}/configure">Configuration</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tools</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Maintenance</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+        </div>
+        
+    </div>
+    <div class="col-lg-10">
+      <div class="page-header">
+        <h1>Configuration | Project <small class="text-muted"> {{ project.name }} </small></h1>
+      </div>
+      <form class="bs-component">
+        <div class="form-group">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitch1" unchecked="">
+              <label class="custom-control-label" for="customSwitch1">Configure Interfaces</label>
+            </div>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitch2" unchecked="">
+              <label class="custom-control-label" for="customSwitch2">Configure OSPF</label>
+            </div>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="customSwitch3" unchecked="">
+                <label class="custom-control-label" for="customSwitch3">Configure BGP</label>
+            </div>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="customSwitch4" unchecked="">
+                <label class="custom-control-label" for="customSwitch4">Configure EIGRP</label>
+            </div>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="customSwitch5" unchecked="">
+                <label class="custom-control-label" for="customSwitch5">Configure RIP</label>
+            </div>
+        </div>
+      </form>
+
+      <div class="row">
+        <div class="col-lg-1">
+          <h3>Device List</h3>
+
+          <ul class="nav nav-pills flex-column">
+            {% for device in project.devices %}
+              <li><a href=/project/{{ project.id }}/configure/{{ device.name }}>{{ device.name }}</a></li>
+            {% endfor %}
+          </ul>
+          
+        </div>
+        <div class="col-lg-9">
+          <div class="btn-group btn-group-md">
+            <button type="button" class="btn btn-secondary">Current Configuration</button>
+            <button type="button" class="btn btn-secondary">Configure Preview</button>
+            <button type="button" class="btn btn-secondary">Configure Diff</button>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              {% if device %}
+                <h4> General Information </h4>
+                <p>-------------------------------</p>
+                <p> Device name: {{device.name}} </p>
+                <p> Project ID: {{device.project_id}} </p>
+                <p> Management IP: {{device.management_ip}} </p>
+              {% else %}
+                <p> Please select a device from device list </p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary">Commit</button>
+            <button type="button" class="btn btn-secondary">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="btn-group">
+        <button type="button" class="btn btn-primary">Configure Preview</button>
+        <button type="button" class="btn btn-primary">Configure Diff</button>
+      </div>
+
+      <div class="jumbotron">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#current_config">Current Configuration</a></li>
+          <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+          <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="current_config" class="tab-pane active show">
+            <div class="jumbotron">
+              <div class="row">
+                <div class="col-lg-1">
+                  <div class="bs-component">
+                    <ul class="nav nav-pills flex-column navbar-dark">
+                      {% for device in project.devices %}
+                      <li class="nav-item">
+                          <a class="nav-link" href=#{{device.name}}>{{ device.name }}</a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-lg-9">
+                  <p>dfdf</p> 
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="menu1" class="tab-pane fade">
+            <p>fdf</p>
+          </div>
+
+          
+
+
+        </div>
+      </div>
+
+      <a class="btn btn-primary btn-lg" href="#" role="button">Commit</a> -->
+   
+    </div>
+  </div>
+{% endblock content %}
