@@ -21,6 +21,7 @@ class Project(db.Model):
     def __repr__(self):
         return f"Project('{self.name}', '{self.date_created}', '{self.config_file}')"
 
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), nullable=False, unique=True)
@@ -32,6 +33,13 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
+
+def add_device(device_name, project_id, management_ip):
+    device = Device(name=device_name, project_id=project_id, management_ip=management_ip)
+    db.session.add(device)
+    db.commit()
+
+
 class Device(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
@@ -42,9 +50,4 @@ class Device(db.Model):
     management_ip = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
-        return f"Device('{self.name}', Project ID: '{self.project_id}', Managemet IP: '{self.management_ip}')"
-    
-    def add_device(name, project_id, management_ip):
-        device = Device(name=name, project_id=project_id, management_ip=management_ip)
-        db.session.add(device)
-        db.commit()
+        return f"Device('{self.name}', Project ID: '{self.project_id}', Management IP: '{self.management_ip}')"

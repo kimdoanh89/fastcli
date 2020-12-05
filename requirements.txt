@@ -879,3 +879,12 @@ yarl==1.6.0 \
 zipp==3.2.0 \
     --hash=sha256:43f4fa8d8bb313e65d8323a3952ef8756bf40f9a5c3ea7334be23ee4ec8278b6 \
     --hash=sha256:b52f22895f4cfce194bc8172f3819ee8de7540aa6d873535a8668b730b8b411f
+
+click~=7.1.2
+nornir~=3.0.0
+scrapli~=2020.9.26
+rich~=7.1.0
+Flask~=1.1.2
+WTForms~=2.3.3
+PyYAML~=5.3.1
+setuptools~=47.1.0

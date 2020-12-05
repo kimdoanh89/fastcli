@@ -14,15 +14,17 @@ class RegistrationForm(FlaskForm):
                                      validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
-    def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
-        if user:
-            raise ValidationError('That username is taken. Please choose a different one.')
 
-    def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
-        if user:
-            raise ValidationError('That email is taken. Please choose a different one.')
+def validate_username(self, username):
+    user = User.query.filter_by(username=username.data).first()
+    if user:
+        raise ValidationError('That username is taken. Please choose a different one.')
+
+
+def validate_email(self, email):
+    user = User.query.filter_by(email=email.data).first()
+    if user:
+        raise ValidationError('That email is taken. Please choose a different one.')
 
 
 class LoginForm(FlaskForm):
@@ -35,17 +37,20 @@ class LoginForm(FlaskForm):
 
 class ProjectForm(FlaskForm):
     name = StringField('Name*',
-                           validators=[DataRequired(), Length(min=2, max=50)])
+                       validators=[DataRequired(), Length(min=2, max=50)])
     description = StringField('Description')
     configFile = StringField('Config File*')
     inventoryFile = StringField('Inventory File*')
     submit = SubmitField('Save')
-    def validate_name(self, name):
-        name = Project.query.filter_by(name=name.data).first()
-        if name:
-            raise ValidationError('That Project name is taken. Please choose a different one.')
 
-    def validate_configFile(self, configFile):
-        configFile = Project.query.filter_by(config_file=configFile.data).first()
-        if configFile:
-            raise ValidationError('Project with this config file is exist. Please choose a different one.')
+
+def validate_name(self, name):
+    name = Project.query.filter_by(name=name.data).first()
+    if name:
+        raise ValidationError('That Project name is taken. Please choose a different one.')
+
+
+def validate_config_file(self, config_file):
+    config_file = Project.query.filter_by(config_file=config_file.data).first()
+    if config_file:
+        raise ValidationError('Project with this config file is exist. Please choose a different one.')

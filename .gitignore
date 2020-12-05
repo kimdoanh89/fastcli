@@ -10,3 +10,4 @@ fastcli.egg-info/
 output/
 poetry.lock
 pyproject.toml
+.idea/

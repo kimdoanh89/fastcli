@@ -10,6 +10,7 @@ import yaml
 def about():
     return render_template('about.html')
 
+
 @app.route('/')
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -24,6 +25,7 @@ def register():
         flash('Your account has been created! You are now able to login!', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -50,39 +52,44 @@ def logout():
 def project():
     return render_template('project.html', projects=current_user.projects)
 
+
 @app.route('/add_project', methods=['GET', 'POST'])
 def add_project():
     form = ProjectForm()
     if form.validate_on_submit():
-        project = Project(name=form.name.data, description=form.description.data,
-                          config_file=form.configFile.data, user_id=current_user.id,
-                          inventory_file=form.inventoryFile.data)
-        db.session.add(project)
+        new_project = Project(name=form.name.data, description=form.description.data,
+                              config_file=form.configFile.data, user_id=current_user.id,
+                              inventory_file=form.inventoryFile.data)
+        db.session.add(new_project)
         db.session.commit()
         # flash('New project has been created!', 'success')
         with open(form.inventoryFile.data, 'r') as f:
-            devicelist = yaml.full_load(f)
-        for hostname, values in devicelist.items():
-            device = Device(name=hostname, project_id=project.id, management_ip=values['hostname'])
+            device_list = yaml.full_load(f)
+        for hostname, values in device_list.items():
+            device = Device(name=hostname, project_id=new_project.id, management_ip=values['hostname'])
             db.session.add(device)
             db.session.commit()
         return redirect(url_for('project'))
     return render_template('add_project.html', title='Add Project', form=form)
 
-@app.route('/project/<id>', methods=['GET'])
-def project_info(id):
+
+@app.route('/project/<project_id>', methods=['GET'])
+def project_info(project_id):
     """
     This page shows detailed stats on an individual project
     queried by project id
     """
-    return render_template('project_detail.html', project=Project.query.filter_by(id=id).first())
-
-@app.route('/project/<id>/configure', methods=['GET', 'POST'])
-def configure(id):
-    return render_template('configure_project.html', title='Configure Project', project=Project.query.filter_by(id=id).first())
+    return render_template('project_detail.html', project=Project.query.filter_by(id=project_id).first())
 
 
-@app.route('/project/<id>/configure/<device>', methods=['GET', 'POST'])
-def current_configure(id, device):
-    return render_template('configure_project.html', title='Configure Project', project=Project.query.filter_by(id=id).first(),
-                           device=Device.query.filter_by(project_id=id, name=device).first())
+@app.route('/project/<project_id>/configure', methods=['GET', 'POST'])
+def configure(project_id):
+    return render_template('configure_project.html', title='Configure Project',
+                           project=Project.query.filter_by(id=project_id).first())
+
+
+@app.route('/project/<project_id>/configure/<device>', methods=['GET', 'POST'])
+def current_configure(project_id, device):
+    return render_template('configure_project.html', title='Configure Project',
+                           project=Project.query.filter_by(id=project_id).first(),
+                           device=Device.query.filter_by(project_id=project_id, name=device).first())
