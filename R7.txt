@@ -1,0 +1,160 @@
+Using 1915 out of 524288 bytes
+!
+! Last configuration change at 13:22:36 GMT Sat Nov 7 2020
+!
+version 15.5
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R7
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition mgmt
+ !
+ address-family ipv4
+ exit-address-family
+!
+!
+no aaa new-model
+!
+!
+!
+bsd-client server url https://cloudsso.cisco.com/as/token.oauth2
+clock timezone GMT 0 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip domain name doanh.lab
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+cts logging verbose
+!
+!
+username admin privilege 15 password 0 admin
+!
+redundancy
+!
+!
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 7.7.7.7 255.0.0.0
+!
+interface Loopback11
+ ip address 10.7.7.7 255.0.0.0
+!
+interface Ethernet0/0
+ no ip address
+ shutdown
+!
+interface Ethernet0/1
+ no ip address
+ shutdown
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ vrf forwarding mgmt
+ ip address 192.168.128.157 255.255.255.0
+!
+interface Serial1/0
+ ip address 192.1.17.7 255.255.255.0
+ serial restart-delay 0
+!
+interface Serial1/1
+ ip address 192.1.37.7 255.255.255.0
+ serial restart-delay 0
+!
+interface Serial1/2
+ ip address 192.1.47.7 255.255.255.0
+ serial restart-delay 0
+!
+interface Serial1/3
+ ip address 192.1.67.7 255.255.255.0
+ serial restart-delay 0
+!
+router bgp 700
+ bgp log-neighbor-changes
+ network 7.0.0.0 mask 255.255.255.255
+ neighbor 192.1.17.1 remote-as 1000
+ neighbor 192.1.37.3 remote-as 1000
+ neighbor 192.1.47.4 remote-as 400
+ neighbor 192.1.67.6 remote-as 600
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ exec-timeout 0 0
+ login local
+ transport input all
+!
+!
+end

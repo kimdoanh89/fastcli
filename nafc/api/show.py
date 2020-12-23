@@ -40,9 +40,11 @@ def run_get_config(command, structured, table, device, group):
     if group:
         nr = nr.filter(F(groups__contains=f"{group}"))
     result = nr.run(task=get_config, command=command)
+    breakpoint()
     if structured:
         print_structured_result(result, parser="genie")
     elif table:
         print_table_result(result, parser="genie")
     else:
         print_result(result)
+    return result

@@ -87,9 +87,19 @@ def configure(project_id):
     return render_template('configure_project.html', title='Configure Project',
                            project=Project.query.filter_by(id=project_id).first())
 
-
+from nornir import InitNornir
+from constants import config_file
+from nafc.api.show import get_config
+nr = InitNornir(config_file=f"{config_file}")
+result = nr.run(task=get_config, command="sh config")
 @app.route('/project/<project_id>/configure/<device>', methods=['GET', 'POST'])
 def current_configure(project_id, device):
+    # result = run_get_config("sh config", False, False, "R1")
+    x = result[device][1].result
+    with open(f'{device}.txt', 'w') as a:
+       a.write(x)
+    # x = print(x)
     return render_template('configure_project.html', title='Configure Project',
                            project=Project.query.filter_by(id=project_id).first(),
-                           device=Device.query.filter_by(project_id=project_id, name=device).first())
+                           device=Device.query.filter_by(project_id=project_id, name=device).first(),
+                           result=x)
