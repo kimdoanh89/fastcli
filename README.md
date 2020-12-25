@@ -311,3 +311,31 @@ Learn interface, ospf, bgp
 ```bash
 pyats learn ospf bgp interface --testbed-file inventory/bgp/testbed.yaml --output inventory/bgp/output
 ```
+
+# Frontend
+## Screenshots
+Sign Up page
+![Alt text](images/0_signup.PNG)
+
+Sign In page
+![Alt text](images/0_signin.PNG)
+
+Add New Project
+- Config File: `inventory/bgp/config.yaml`
+- Inventory File: `inventory/bgp/hosts.yaml`
+
+![Alt text](images/0_add_new_project.PNG)
+
+Projects Page
+![Alt text](images/01_projects_page.PNG)
+
+Project Dashboard
+![Alt text](images/2.PNG)
+
+Configuration Page
+![Alt text](images/5.PNG)
+
+Monitor Page
+![Alt text](images/6.PNG)
+![Alt text](images/7.PNG)
+
