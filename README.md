@@ -337,5 +337,6 @@ Configuration Page
 
 Monitor Page
 ![Alt text](images/6.PNG)
-![Alt text](images/7.PNG)
+
+![Alt text](images/7.png)
 
