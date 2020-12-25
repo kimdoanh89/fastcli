@@ -314,28 +314,28 @@ pyats learn ospf bgp interface --testbed-file inventory/bgp/testbed.yaml --outpu
 
 # Frontend
 ## Screenshots
-Sign Up page
+### Sign Up page
 ![Alt text](images/0_signup.PNG)
 
-Sign In page
+### Sign In page
 ![Alt text](images/0_signin.PNG)
 
-Add New Project
+### Add New Project
 - Config File: `inventory/bgp/config.yaml`
 - Inventory File: `inventory/bgp/hosts.yaml`
 
 ![Alt text](images/0_add_new_project.PNG)
 
-Projects Page
+### Projects Page
 ![Alt text](images/01_projects_page.PNG)
 
-Project Dashboard
+### Project Dashboard
 ![Alt text](images/2.PNG)
 
-Configuration Page
+### Configuration Page
 ![Alt text](images/5.PNG)
 
-Monitor Page
+### Monitor Page
 ![Alt text](images/6.PNG)
 
 ![Alt text](images/7.png)
