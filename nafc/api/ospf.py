@@ -9,9 +9,9 @@ from constants import config_file
 
 def ospf_config(task):
     ospf_cms = []
-    interfaces = task.host['interfaces']
-    ospf_advertised = task.host['ospf_advertised']
-    router_id = task.host['ospf_router_id']
+    interfaces = task.host["interfaces"]
+    ospf_advertised = task.host["ospf_advertised"]
+    router_id = task.host["ospf_router_id"]
     for name, _ in interfaces.items():
         if "lo" in name:
             ospf_cms.append(f"interface {name}")
@@ -41,18 +41,21 @@ def not_so_stubby_area_config(task, area: int):
 
 @click.group(name="ospf")
 def cli_ospf():
-    """Commands for OSPF configuration
-    """
+    """Commands for OSPF configuration"""
     pass
 
 
 @cli_ospf.command(
-    name="configure",
-    help="Configure OSPF from the information defined in hosts.yaml")
+    name="configure", help="Configure OSPF from the information defined in hosts.yaml"
+)
 @click.option("--device", help="Configure only the device", required=False)
 @click.option(
-    "--group", default="ospf", show_default=True,
-    help="Configure all devices belong to the group", required=False)
+    "--group",
+    default="ospf",
+    show_default=True,
+    help="Configure all devices belong to the group",
+    required=False,
+)
 def run_ospf_config(device, group):
     nr = InitNornir(config_file=f"{config_file}")
     if device:
@@ -63,11 +66,8 @@ def run_ospf_config(device, group):
     print_result(result)
 
 
-@cli_ospf.command(
-    name="stub",
-    help="Configure an OSPF area as stub area")
-@click.option(
-    "--ospf_area", help="Area to be configured", required=True, type=int)
+@cli_ospf.command(name="stub", help="Configure an OSPF area as stub area")
+@click.option("--ospf_area", help="Area to be configured", required=True, type=int)
 def run_stub_config(ospf_area):
     nr = InitNornir(config_file=f"{config_file}")
     nr = nr.filter(F(ospf_area__contains=int(ospf_area)))
@@ -75,11 +75,8 @@ def run_stub_config(ospf_area):
     print_result(result)
 
 
-@cli_ospf.command(
-    name="nssa",
-    help="Configure an OSPF area as Not-So-Stubby-Area")
-@click.option(
-    "--ospf_area", help="Area to be configured", required=True, type=int)
+@cli_ospf.command(name="nssa", help="Configure an OSPF area as Not-So-Stubby-Area")
+@click.option("--ospf_area", help="Area to be configured", required=True, type=int)
 def run_nssa_config(ospf_area):
     nr = InitNornir(config_file=f"{config_file}")
     nr = nr.filter(F(ospf_area__contains=int(ospf_area)))

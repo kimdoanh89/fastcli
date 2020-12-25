@@ -9,8 +9,7 @@ from nafc.api.bgp import cli_bgp
 
 @click.group()
 def cli():
-    """CLI tool for fast configuration of the network, powerd by Nornir 3.0.
-    """
+    """CLI tool for fast configuration of the network, powerd by Nornir 3.0."""
     pass
 
 

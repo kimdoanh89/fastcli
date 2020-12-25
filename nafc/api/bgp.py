@@ -9,9 +9,9 @@ import ipaddress
 
 def bgp_config(task):
     bgp_cms = []
-    asn = task.host['asn']
-    bgp_neighbors = task.host['bgp_neighbors']
-    bgp_advertised = task.host['bgp_advertised']
+    asn = task.host["asn"]
+    bgp_neighbors = task.host["bgp_neighbors"]
+    bgp_advertised = task.host["bgp_advertised"]
     bgp_cms.append(f"router bgp {asn}")
     for nw in bgp_advertised:
         nw = ipaddress.ip_network(nw)
@@ -23,7 +23,7 @@ def bgp_config(task):
 
 
 def ibgp_config(task):
-    """ Configure ibgp Neighbor Relationship based on the Loopback
+    """Configure ibgp Neighbor Relationship based on the Loopback
     ibgp_neighbors: {"remote-as": ["list of remote AS's ip address"], ...}
     At R2:
     ibgp_neighbors: {"1000": ["10.1.1.1", "10.3.3.3"]} means that
@@ -36,9 +36,9 @@ def ibgp_config(task):
     enable R2 as Route Reflector.
     """
     ibgp_cms = []
-    asn = task.host['asn']
-    ibgp_neighbors = task.host['ibgp_neighbors']
-    ibgp_update_source = task.host['ibgp_update_source']
+    asn = task.host["asn"]
+    ibgp_neighbors = task.host["ibgp_neighbors"]
+    ibgp_update_source = task.host["ibgp_update_source"]
     ibgp_cms.append(f"router bgp {asn}")
     for key, values in ibgp_neighbors.items():
         for v in values:
@@ -48,7 +48,7 @@ def ibgp_config(task):
         for v in values:
             ibgp_cms.append(f"neighbor {v} update-source {key}")
     try:
-        route_relector_clients = task.host['route_relector_clients']
+        route_relector_clients = task.host["route_relector_clients"]
         if route_relector_clients is not None:
             for route_relector_client in route_relector_clients:
                 cm = f"neighbor {route_relector_client} route-reflector-client"
@@ -61,18 +61,21 @@ def ibgp_config(task):
 
 @click.group(name="bgp")
 def cli_bgp():
-    """Command for BGP configuration
-    """
+    """Command for BGP configuration"""
     pass
 
 
 @cli_bgp.command(
-    name="external",
-    help="Configure eBGP from the information defined in hosts.yaml")
+    name="external", help="Configure eBGP from the information defined in hosts.yaml"
+)
 @click.option("--device", help="Configure only the device", required=False)
 @click.option(
-    "--group", default="bgp", show_default=True,
-    help="Configure all devices belong to the group", required=False)
+    "--group",
+    default="bgp",
+    show_default=True,
+    help="Configure all devices belong to the group",
+    required=False,
+)
 def run_bgp_config(device, group):
     nr = InitNornir(config_file=f"{config_file}")
     if device:
@@ -84,12 +87,16 @@ def run_bgp_config(device, group):
 
 
 @cli_bgp.command(
-    name="internal",
-    help="Configure iBGP from the information defined in hosts.yaml")
+    name="internal", help="Configure iBGP from the information defined in hosts.yaml"
+)
 @click.option("--device", help="Configure only the device", required=False)
 @click.option(
-    "--group", default="ibgp", show_default=True,
-    help="Configure all devices belong to the group", required=False)
+    "--group",
+    default="ibgp",
+    show_default=True,
+    help="Configure all devices belong to the group",
+    required=False,
+)
 def run_ibgp_config(device, group):
     nr = InitNornir(config_file=f"{config_file}")
     if device:

@@ -4,9 +4,10 @@ from datetime import datetime
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-app.config['SQLACHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite3"
+app.config["SQLACHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
+
 
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -17,13 +18,15 @@ class Customer(db.Model):
     postcode = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
 
-    orders = db.relationship('Order', backref='customer')
+    orders = db.relationship("Order", backref="customer")
 
 
-order_product = db.Table('order_product',
-    db.Column('order_id', db.Integer, db.ForeignKey('order.id'), primary_key=True),
-    db.Column('product_id', db.Integer, db.ForeignKey('product.id'), primary_key=True)
+order_product = db.Table(
+    "order_product",
+    db.Column("order_id", db.Integer, db.ForeignKey("order.id"), primary_key=True),
+    db.Column("product_id", db.Integer, db.ForeignKey("product.id"), primary_key=True),
 )
+
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -31,19 +34,21 @@ class Order(db.Model):
     shipped_date = db.Column(db.DateTime)
     delivered_date = db.Column(db.DateTime)
     coupon_code = db.Column(db.String(50))
-    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
+    customer_id = db.Column(db.Integer, db.ForeignKey("customer.id"), nullable=False)
 
-    products = db.relationship('Product', secondary=order_product)
+    products = db.relationship("Product", secondary=order_product)
+
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
     price = db.Column(db.Integer, nullable=False)
 
-@app.route('/')
+
+@app.route("/")
 def main():
     return "Hello there!"
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()

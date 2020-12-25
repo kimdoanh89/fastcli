@@ -5,31 +5,36 @@ from constants import config_file
 
 
 def redistribute_at_R1_config(task):
-    redis_cms = ["router eigrp 100",
-                 "redistribute ospf 1 metric 10 10 1 1 1",
-                 "router ospf 1",
-                 "redistribute eigrp 100 subnets"]
+    redis_cms = [
+        "router eigrp 100",
+        "redistribute ospf 1 metric 10 10 1 1 1",
+        "router ospf 1",
+        "redistribute eigrp 100 subnets",
+    ]
     task.run(netmiko_send_config, config_commands=redis_cms)
 
 
 def redistribute_at_R6_config(task):
-    redis_cms = ["router rip",
-                 "redistribute ospf 1 metric 1",
-                 "router ospf 1",
-                 "redistribute rip"]
+    redis_cms = [
+        "router rip",
+        "redistribute ospf 1 metric 1",
+        "router ospf 1",
+        "redistribute rip",
+    ]
     task.run(netmiko_send_config, config_commands=redis_cms)
 
 
 def route_summarization_at_R1(task):
-    summarize_cms = ["router ospf 1",
-                     "summary-address 207.1.4.0 255.255.252.0",
-                     "summary-address 208.1.4.0 255.255.252.0"]
+    summarize_cms = [
+        "router ospf 1",
+        "summary-address 207.1.4.0 255.255.252.0",
+        "summary-address 208.1.4.0 255.255.252.0",
+    ]
     task.run(netmiko_send_config, config_commands=summarize_cms)
 
 
 def route_summarization_at_R6(task):
-    summarize_cms = ["router ospf 1",
-                     "summary-address 109.1.4.0 255.255.252.0"]
+    summarize_cms = ["router ospf 1", "summary-address 109.1.4.0 255.255.252.0"]
     task.run(netmiko_send_config, config_commands=summarize_cms)
 
 

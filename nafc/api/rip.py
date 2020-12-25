@@ -11,7 +11,7 @@ def rip_config(task):
     rip_cms.append("router rip")
     rip_cms.append("version 2")
     rip_cms.append("no auto")
-    rip_advertised = task.host['rip_advertised']
+    rip_advertised = task.host["rip_advertised"]
     for nw in rip_advertised:
         rip_cms.append(f"network {nw}")
     task.run(netmiko_send_config, config_commands=rip_cms)
@@ -19,18 +19,21 @@ def rip_config(task):
 
 @click.group(name="rip")
 def cli_rip():
-    """Command for RIP configuration
-    """
+    """Command for RIP configuration"""
     pass
 
 
 @cli_rip.command(
-    name="configure",
-    help="Configure RIP from the information defined in hosts.yaml")
+    name="configure", help="Configure RIP from the information defined in hosts.yaml"
+)
 @click.option("--device", help="Configure only the device", required=False)
 @click.option(
-    "--group", default="rip", show_default=True,
-    help="Configure all devices belong to the group", required=False)
+    "--group",
+    default="rip",
+    show_default=True,
+    help="Configure all devices belong to the group",
+    required=False,
+)
 def run_eigrp_config(device, group):
     nr = InitNornir(config_file=f"{config_file}")
     if device:

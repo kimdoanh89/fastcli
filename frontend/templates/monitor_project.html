@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row mb-5">
+    <div class="col-lg-1">
+        <div class="bs-component">
+            <ul class="nav nav-pills flex-column navbar-dark">
+                <li class="nav-item">
+                    <a class="nav-link" href="/project/{{ project.id }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/project/{{ project.id }}/monitor">Monitor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/project/{{ project.id }}/configure">Configuration</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tools</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Maintenance</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+        </div>
+        
+    </div>
+    <div class="col-lg-10">
+      <div class="container">
+        <h1>Monitor | Project <small class="text-muted"> {{ project.name }} </small></h1>
+        <form method="POST", action="">
+          {{ form.hidden_tag() }}
+          <fieldset class="form-group">
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="form-group">
+                  {{ form.device.label(class="form-control-label") }}
+                  {{ form.device(class="form-control form-control-lg") }}
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <div class="form-group">
+                  {{ form.command.label(class="form-control-label") }}
+                  {{ form.command(class="form-control form-control-lg") }}
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+        </form>
+
+        </br></br>
+        <h1>Result</h1>
+        </br>
+        <div class="row">
+          <div class="col-lg-6">
+            <h3>Raw data</h3>
+            <div class="panel panel-default panel-body">
+              <div style="height:600px;overflow:auto;">
+                {% if form.device.data %}
+                  <pre>{{result_raw}}</pre>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <h3>Json format</h3>
+            <div class="panel panel-default panel-body">
+              <div style="height:600px;overflow:auto;">
+                {% if form.device.data %}
+                  <pre>{{result_json}}</pre>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+{% endblock content %}

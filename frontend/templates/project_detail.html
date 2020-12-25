@@ -8,21 +8,11 @@
                   <a class="nav-link" href="/project/{{ project.id }}">Dashboard</a>
                </li>
                <li class="nav-item">
-                   <a class="nav-link" href="#">Monitor</a>
+                   <a class="nav-link" href="/project/{{ project.id }}/monitor">Monitor</a>
                </li>
                <li class="nav-item">
                   <a class="nav-link" href="/project/{{ project.id }}/configure">Configuration</a>
               </li>
-               <!-- <li class="nav-item dropdown">
-                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuration</a>
-                 <div class="dropdown-menu">
-                   <a class="dropdown-item" href="/configure">Action</a>
-                   <a class="dropdown-item" href="#">Another action</a>
-                   <a class="dropdown-item" href="#">Something else here</a>
-                   <div class="dropdown-divider"></div>
-                   <a class="dropdown-item" href="#">Separated link</a>
-                 </div>
-               </li> -->
                <li class="nav-item">
                    <a class="nav-link" href="#">Tools</a>
                </li>
@@ -34,69 +24,47 @@
                </li>
            </ul>
        </div>
-       
    </div>
    <div class="col-lg-10">
       <div class="container">
-         <div class="col-lg-12">
-            <div class="page-header">
-               <h1>Project Detail<small class="text-muted"> for {{ project.name }} </small></h1>
-            </div>
-         </div>
+         <h1> Dashboard | Project <small class="text-muted"> {{ project.name }} </small></h1>
+         <!-- <a type="button" class="btn btn-info" href="/project/{{ project.id }}">Update details</a> -->
       </div>
+      
       <div class="container">
-         <div class="jumbotron">
-            <ul class="nav nav-tabs">
-               <li class="nav-item">
-                  <a class="nav-link active" data-toggle="tab" href="#devicelist">Device Lists</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#configure">Configure</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#current_config">Current Configuration</a>
-               </li>
-            </ul>
-            <div id="myTabContent" class="tab-content">
-               <div class="tab-pane active" id="devicelist">
-                  <table class="table table-hover">
-                     <thead>
-                        <tr>
-                           <th scope="col">Hostname</th>
-                           <th scope="col">Management IP</th>
-                           <th scope="col">Version</th>
-                           <th scope="col">Platform</th>
-                           <th scope="col">Image ID</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        {% for device in project.devices %}
-                        <tr>
-                              <td> {{ device.name}} </td>
-                              <td> {{ device.management_ip }} </td>
-                              <td> {{ device.version }} </td>
-                              <td> {{ device.platform }} </td>
-                              <td> {{ device.image_id }} </td>
-                        </tr>
-                        {% endfor %}
-                     </tbody>
-                  </table>
-               </div>
-               <div class="tab-pane" id="configure">
-                  <div class="btn-group-vertical">
-                     <button type="button" class="btn btn-outline-primary">Primary</button>
-                     <button type="button" class="btn btn-outline-primary">Primary</button>
-                     <button type="button" class="btn btn-outline-primary">Primary</button>
-                     <button type="button" class="btn btn-outline-primary">Primary</button>
-                     </div>
-               </div>
-               <div class="tab-pane" id="current_config">
-                  <div class="jumbotron">
-                     <p>Raw output</p>
-                  </div>
-               </div>
-            </div>
-         </div>
+         <table class="table table-hover">
+            <thead>
+               <tr>
+                  <th scope="col">Hostname</th>
+                  <th scope="col">Management IP</th>
+                  <th scope="col">Version</th>
+                  <th scope="col">Platform</th>
+                  <th scope="col">Image ID</th>
+                  <th scope="col">Compiled Date</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for device in project.devices %}
+               <tr>
+                     <td> {{ device.name}} </td>
+                     <td> {{ device.management_ip }} </td>
+                     <td> {{ result[device.name]['version']['version'] }} </td>
+                     <td> {{ result[device.name]['version']['platform'] }} </td>
+                     <td> {{ result[device.name]['version']['image_id'] }} </td>
+                     <td> {{ result[device.name]['version']['compiled_date'] }} </td>
+               </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+
+      </div>
+      </br></br>
+      <!-- {{result['R2']['version']}} -->
+      <!-- <pre>{{result}}</pre> -->
+
+      <div class="container">
+         <h1>Project Topology<small class="text-muted"> for {{ project.name }} </small></h1>
+         <img src="{{url_for('static', filename='00_topo2.png', width=100)}}" class = "center" style="height:600px;">
       </div>
 
    </div>

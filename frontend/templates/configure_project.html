@@ -8,7 +8,7 @@
                     <a class="nav-link" href="/project/{{ project.id }}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Monitor</a>
+                    <a class="nav-link" href="/project/{{ project.id }}/monitor">Monitor</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/project/{{ project.id }}/configure">Configuration</a>
@@ -27,9 +27,9 @@
         
     </div>
     <div class="col-lg-10">
-      <div class="page-header">
+
         <h1>Configuration | Project <small class="text-muted"> {{ project.name }} </small></h1>
-      </div>
+
       <form class="bs-component">
         <div class="form-group">
             <div class="custom-control custom-switch">
@@ -56,7 +56,7 @@
       </form>
 
       <div class="row">
-        <div class="col-lg-1">
+        <div class="col-lg-1.5">
           <h3>Device List</h3>
 
           <ul class="nav nav-pills flex-column">
@@ -66,81 +66,41 @@
           </ul>
           
         </div>
-        <div class="col-lg-9">
-          <div class="btn-group btn-group-md">
-            <button type="button" class="btn btn-secondary">Current Configuration</button>
-            <button type="button" class="btn btn-secondary">Configure Preview</button>
-            <button type="button" class="btn btn-secondary">Configure Diff</button>
-          </div>
-          <div class="panel panel-default">
-            <div class="panel-body">
-              {% if device %}
-                <h4> General Information </h4>
-                <p>-------------------------------</p>
-                <p> Device name: {{device.name}} </p>
-                <p> Project ID: {{device.project_id}} </p>
-                <p> Management IP: {{device.management_ip}} </p>
-                <h4> Running Configure </h4>
-                <p>-------------------------------</p>
-                {{result}}
-              {% else %}
-                <p> Please select a device from device list </p>
-              {% endif %}
+        <div class="col-lg-11">
+          <div class="container">
+            <div class="btn-group btn-group-md">
+              <button type="button" class="btn btn-secondary">Current Configuration</button>
+              <button type="button" class="btn btn-secondary">Configure Preview</button>
+              <button type="button" class="btn btn-secondary">Configure Diff</button>
             </div>
-          </div>
-          <div class="btn-group">
-            <button type="button" class="btn btn-primary">Commit</button>
-            <button type="button" class="btn btn-secondary">Cancel</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- <div class="btn-group">
-        <button type="button" class="btn btn-primary">Configure Preview</button>
-        <button type="button" class="btn btn-primary">Configure Diff</button>
-      </div>
-
-      <div class="jumbotron">
-        <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#current_config">Current Configuration</a></li>
-          <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-          <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
-        </ul>
-
-        <div class="tab-content">
-          <div id="current_config" class="tab-pane active show">
-            <div class="jumbotron">
-              <div class="row">
-                <div class="col-lg-1">
-                  <div class="bs-component">
-                    <ul class="nav nav-pills flex-column navbar-dark">
-                      {% for device in project.devices %}
-                      <li class="nav-item">
-                          <a class="nav-link" href=#{{device.name}}>{{ device.name }}</a>
-                      </li>
-                      {% endfor %}
-                    </ul>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                {% if device %}
+                  <h4> General Information </h4>
+                  <p>-------------------------------</p>
+                  <p> Device name: {{device.name}} </p>
+                  <p> Project ID: {{device.project_id}} </p>
+                  <p> Management IP: {{device.management_ip}} </p>
+                  <h4> Running Configure </h4>
+                  <p>-------------------------------</p>
+                  <div style="height:600px;overflow:auto;">
+                      <pre>{{result2}}</pre>
                   </div>
-                </div>
-                <div class="col-lg-9">
-                  <p>dfdf</p> 
-                </div>
+                {% else %}
+                  <p> Please select a device from device list </p>
+                {% endif %}
+                
+                
               </div>
             </div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary">Commit</button>
+              <button type="button" class="btn btn-secondary">Cancel</button>
+            </div>
           </div>
-
-          <div id="menu1" class="tab-pane fade">
-            <p>fdf</p>
-          </div>
-
-          
-
-
         </div>
       </div>
 
-      <a class="btn btn-primary btn-lg" href="#" role="button">Commit</a> -->
-   
     </div>
   </div>
 {% endblock content %}

@@ -15,8 +15,8 @@ class Project(db.Model):
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     config_file = db.Column(db.Text, nullable=False)
     inventory_file = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    devices = db.relationship('Device', backref='project', lazy=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    devices = db.relationship("Device", backref="project", lazy=True)
 
     def __repr__(self):
         return f"Project('{self.name}', '{self.date_created}', '{self.config_file}')"
@@ -26,16 +26,18 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False, unique=True)
-    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+    image_file = db.Column(db.String(20), nullable=False, default="default.jpg")
     password = db.Column(db.String(60), nullable=False)
-    projects = db.relationship('Project', backref='author', lazy=True)
-    
+    projects = db.relationship("Project", backref="author", lazy=True)
+
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
 
 def add_device(device_name, project_id, management_ip):
-    device = Device(name=device_name, project_id=project_id, management_ip=management_ip)
+    device = Device(
+        name=device_name, project_id=project_id, management_ip=management_ip
+    )
     db.session.add(device)
     db.commit()
 
@@ -43,10 +45,10 @@ def add_device(device_name, project_id, management_ip):
 class Device(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    version = db.Column(db.String(100), nullable=False, default='-')
-    platform = db.Column(db.String(100), nullable=False, default='-')
-    image_id = db.Column(db.String(100), nullable=False, default='-')
-    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    version = db.Column(db.String(100), nullable=False, default="-")
+    platform = db.Column(db.String(100), nullable=False, default="-")
+    image_id = db.Column(db.String(100), nullable=False, default="-")
+    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
     management_ip = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):

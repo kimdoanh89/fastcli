@@ -42,21 +42,26 @@ def print_table_result(
     # breakpoint()
     console = Console()
     table = Table(
-        "Hostname", "Version", "Platform", "Image ID", "Image Type",
-        "Uptime", "System Image", "Compiled Date")
+        "Hostname",
+        "Version",
+        "Platform",
+        "Image ID",
+        "Image Type",
+        "Uptime",
+        "System Image",
+        "Compiled Date",
+    )
     for hostname, multi_result in result.items():
         updated_multi_result = MultiResult(result.name)
         for individual_result in multi_result:
-            scrapli_responses = getattr(
-                individual_result, "scrapli_response", None)
+            scrapli_responses = getattr(individual_result, "scrapli_response", None)
             if isinstance(scrapli_responses, Response):
                 scrapli_responses = [scrapli_responses]
             if not scrapli_responses:
                 updated_multi_result.append(individual_result)
                 continue
             for scrapli_response in scrapli_responses:
-                parser_method = getattr(
-                    scrapli_response, f"{parser}_parse_output")
+                parser_method = getattr(scrapli_response, f"{parser}_parse_output")
                 updated_result = Result(
                     host=individual_result.host,
                     changed=individual_result.changed,
@@ -80,7 +85,7 @@ def print_table_result(
                     updated_result.result = structured_result
                 updated_multi_result.append(updated_result)
             try:
-                version = structured_result['version']
+                version = structured_result["version"]
                 table.add_row(
                     f'[green]{version["hostname"]}[/green]',
                     f'[blue]{version["version"]}[/blue]',
@@ -89,7 +94,8 @@ def print_table_result(
                     f'[orange1]{version["image_type"]}[/orange1]',
                     f'[bright_green]{version["uptime"]}[/bright_green]',
                     f'[magenta]{version["system_image"]}[/magenta]',
-                    f'[yellow]{version["compiled_date"]}[/yellow]')
+                    f'[yellow]{version["compiled_date"]}[/yellow]',
+                )
             except KeyError:
                 print("This command is not supported in Table format!")
         if updated_multi_result:

@@ -3,6 +3,7 @@ from nornir import InitNornir
 from nornir.core.filter import F
 from nornir_utils.plugins.functions import print_result
 from nornir_scrapli.tasks import send_configs as scrapli_send_configs
+
 # from nornir_napalm.plugins.tasks import napalm_configure
 # from nornir_netmiko.tasks import netmiko_send_config
 import ipaddress
@@ -16,7 +17,7 @@ def get_env_vars(ctx, args, incomplete):
 
 def interfaces_config(task):
     interfaces_cms = []
-    interfaces = task.host['interfaces']
+    interfaces = task.host["interfaces"]
     for name, interface in interfaces.items():
         cm = f"interface {name}"
         interfaces_cms.append(cm)
@@ -34,21 +35,24 @@ def interfaces_config(task):
 
 @click.group(name="interfaces")
 def cli_interfaces():
-    """Command for interfaces configuration
-    """
+    """Command for interfaces configuration"""
     pass
 
 
 @cli_interfaces.command(
     name="configure",
-    help="Configure the Interfaces from the dictionary defined in hosts.yaml")
+    help="Configure the Interfaces from the dictionary defined in hosts.yaml",
+)
 # @click.argument("device2", type=click.STRING, autocompletion=get_env_vars)
 @click.option(
-    "--device", help="Configure only the device", required=False,
-    autocompletion=get_env_vars)
+    "--device",
+    help="Configure only the device",
+    required=False,
+    autocompletion=get_env_vars,
+)
 @click.option(
-    "--group",
-    help="Configure all devices belong to the group", required=False)
+    "--group", help="Configure all devices belong to the group", required=False
+)
 def run_interfaces_config(device, group):
     # config_file = os.environ.get('NORNIR_CONFIG_FILE')
     # os.chdir('../')
